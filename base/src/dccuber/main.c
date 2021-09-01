@@ -28,6 +28,35 @@ int main(int argc, char const *argv[])
   }
   printf("\n");
 
+  // inicializar variables
+  pid_t fabrica_id;
+  pid_t *semaforos_id = calloc(3, sizeof(pid_t));
+  int cant_repartidores = data_in->lines[1][1];
+  pid_t *repartidores_id = calloc(cant_repartidores, sizeof(pid_t));
+
+  // Crear fábrica
+  fabrica_id = fork();
+
+  if (!fabrica_id) // Solo el fabrica cumple el if
+  {
+    printf("Hola soy la fabrica\n");
+
+    // Crear RePARTIDORES
+    for (int i = 0; i < cant_repartidores; i++)
+    {
+      repartidores_id[i] = fork();
+      execlp("../repartidor/main", "", NULL);
+    }
+  }
+
+  for (int i = 0; i < 3; i++)
+  {
+    semaforos_id[i] = fork();
+    execlp("../semaforo/main", "", NULL);
+  }
+
   printf("Liberando memoria...\n");
   input_file_destroy(data_in);
+  free(semaforos_id);
+  free(repartidores_id);
 }
