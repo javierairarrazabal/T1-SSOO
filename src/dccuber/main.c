@@ -41,7 +41,7 @@ int main(int argc, char const *argv[])
 
   if (!fabrica_pid) // Solo el fabrica cumple el if
   {
-    printf("Hola soy la fabrica\n");
+    printf("Hola soy la fabrica mi pid es %i\n", getpid());
 
     // Crear RePARTIDORES
     // for (int i = 0; i < cant_repartidores; i++)
