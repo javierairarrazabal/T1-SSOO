@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
-#include <string.h>
+#include <stdlib.h>
 
 #include "../file_manager/manager.h"
 
@@ -58,7 +58,7 @@ int main(int argc, char const *argv[])
       {
         printf("Hola soy el semaforo %d\n", i);
         char *myargs[2];
-        myargs[0] = strdup("../../semaforo");
+        myargs[0] = strdup("../semaforo/main.c");
         myargs[0] = NULL;
         execvp(myargs[0], myargs);
       }
