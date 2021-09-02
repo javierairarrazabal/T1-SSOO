@@ -34,6 +34,7 @@ int main(int argc, char const *argv[])
   pid_t* semaforos_pid = calloc(3, sizeof(pid_t));
   int cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
   pid_t* repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
+  char* pid_parent = malloc(sizeof(char));
   // Crear fábrica
   fabrica_pid = fork();
 
@@ -48,6 +49,7 @@ int main(int argc, char const *argv[])
     //   execlp("../repartidor/main", "", NULL);
     // }
   } else {
+    sprintf(pid_parent, "%d", fabrica_pid);
     for (int i = 0; i < 3; i++)
     {
       semaforos_pid[i] = fork();
@@ -57,8 +59,6 @@ int main(int argc, char const *argv[])
         printf("Hola soy el semaforo %d\n", i);
         char* myargs[5];
         char id_semaforo = i+'0';
-        char* pid_parent;
-        sprintf(pid_parent, "%d", fabrica_pid);
         printf("id parent pliiiss %s\n", pid_parent);
         int prueba = strtol(pid_parent, NULL, 10);
         printf("parent pliiiss %i\n", prueba);
