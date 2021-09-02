@@ -56,12 +56,12 @@ int main(int argc, char const *argv[])
       {
         printf("Hola soy el semaforo %d\n", i);
         char *myargs[5];
-        char id_semaforo = i+'0';
-        char parent_id = fabrica_id+'0';
+        //char id_semaforo = i+'0';
+        //char parent_id = fabrica_id+'0';
         myargs[0] = strdup("./semaforo");
-        myargs[1] = &id_semaforo;
+        myargs[1] = &i;
         myargs[2] = data_in->lines[1][2+i];
-        myargs[3] = &parent_id;
+        myargs[3] = &fabrica_id;
         myargs[4] = NULL;
         execvp(myargs[0], myargs);
       }
