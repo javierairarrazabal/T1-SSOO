@@ -57,8 +57,7 @@ int main(int argc, char const *argv[])
         printf("Hola soy el semaforo %d\n", i);
         char* myargs[5];
         char id_semaforo = i+'0';
-        char* id_parent;
-        sprintf(id_parent, "%d", fabrica_pid);
+        char* id_parent = sprintf(id_parent, "%d", fabrica_pid);
         printf("id parent pliiiss %s\n", id_parent);
         int prueba = strtol(id_parent, NULL, 10);
         printf("parent pliiiss %i\n", prueba);
