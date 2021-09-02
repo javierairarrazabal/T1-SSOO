@@ -36,6 +36,7 @@ int main(int argc, char const *argv[])
   pid_t* repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
   // Crear fábrica
   fabrica_pid = fork();
+  printf("Hola soy la fabrica mi pid es %i\n", fabrica_pid);
 
   if (!fabrica_pid) // Solo el fabrica cumple el if
   {
