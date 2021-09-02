@@ -36,7 +36,6 @@ int main(int argc, char const *argv[])
   pid_t* repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
   // Crear fábrica
   fabrica_pid = fork();
-  printf("Hola soy la fabrica mi pid es %i\n", fabrica_pid);
 
   if (!fabrica_pid) // Solo el fabrica cumple el if
   {
@@ -58,7 +57,8 @@ int main(int argc, char const *argv[])
         printf("Hola soy el semaforo %d\n", i);
         char* myargs[5];
         char id_semaforo = i+'0';
-        char id_parent = fabrica_pid + '0';
+        char id_parent;
+        sprintf(id_parent, "%d", fabrica_pid);
         myargs[0] = strdup("./semaforo");
         myargs[1] = &id_semaforo;
         myargs[2] = data_in->lines[1][2+i];
