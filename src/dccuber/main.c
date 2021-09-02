@@ -58,10 +58,9 @@ int main(int argc, char const *argv[])
       {
         printf("Hola soy el semaforo %d\n", i);
         char *myargs[2];
-        myargs[0] = strdup("semaforo");
+        myargs[0] = strdup("../../semaforo");
         myargs[0] = NULL;
         execvp(myargs[0], myargs);
-        printf("seguí\n");
       }
     }
   }
