@@ -55,8 +55,9 @@ int main(int argc, char const *argv[])
       semaforo_id = fork();
       if (!semaforo_id)
       {
+        char *args[] = {"../../semaforo", NULL};
         printf("Hola soy la semaforo %d\n", i);
-        execlp("../../semaforo", "", NULL);
+        execvp(args[0], args);
       }
     }
   }
