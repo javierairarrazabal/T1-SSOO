@@ -30,15 +30,16 @@ int main(int argc, char const *argv[])
   printf("\n");
 
   // inicializar variables
-  pid_t fabrica_id;
-  pid_t* semaforos_id = calloc(3, sizeof(pid_t));
+  pid_t fabrica_pid;
+  pid_t* semaforos_pid = calloc(3, sizeof(pid_t));
   int cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
-  pid_t* repartidores_id = calloc(cant_repartidores, sizeof(pid_t));;
-  
+  pid_t* repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
+  char* fabrica_id = malloc(sizeof(char));
   // Crear fábrica
-  fabrica_id = fork();
+  fabrica_pid = fork();
+  *fabrica_id = fabrica_pid;
 
-  if (!fabrica_id) // Solo el fabrica cumple el if
+  if (!fabrica_pid) // Solo el fabrica cumple el if
   {
     printf("Hola soy la fabrica\n");
 
@@ -51,11 +52,11 @@ int main(int argc, char const *argv[])
   } else {
     for (int i = 0; i < 3; i++)
     {
-      semaforos_id[i] = fork();
-      if (!semaforos_id[i])
+      semaforos_pid[i] = fork();
+      if (!semaforos_pid[i])
       {
         printf("Hola soy el semaforo %d\n", i);
-        char *myargs[5];
+        char* myargs[5];
         //char id_semaforo = i+'0';
         //char parent_id = fabrica_id+'0';
         myargs[0] = strdup("./semaforo");
@@ -68,7 +69,7 @@ int main(int argc, char const *argv[])
     }
     printf("Liberando memoria...\n");
     input_file_destroy(data_in);
-    free(repartidores_id);
-    free(semaforos_id);
+    free(repartidores_pid);
+    free(semaforos_pid);
   }
 }
