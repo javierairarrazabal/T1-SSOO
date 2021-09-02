@@ -57,7 +57,7 @@ int main(int argc, char const *argv[])
       {
         printf("Hola soy la semaforo %d\n", i);
         break;
-        //execlp("../semaforo/main", "", NULL);
+        execlp(".../semaforo", "", NULL);
       }
     }
   }
