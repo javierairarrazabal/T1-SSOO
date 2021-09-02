@@ -55,13 +55,8 @@ int main(int argc, char const *argv[])
       semaforos_pid[i] = fork();
       if (!semaforos_pid[i])
       {
-        printf("fabrica %i\n", fabrica_pid);
-        printf("Hola soy el semaforo %d\n", i);
         char* myargs[5];
         char id_semaforo = i+'0';
-        printf("id parent pliiiss %s\n", pid_parent);
-        int prueba = strtol(pid_parent, NULL, 10);
-        printf("parent pliiiss %i\n", prueba);
         myargs[0] = strdup("./semaforo");
         myargs[1] = &id_semaforo;
         myargs[2] = data_in->lines[1][2+i];
