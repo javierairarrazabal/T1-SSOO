@@ -59,6 +59,7 @@ int main(int argc, char const *argv[])
         char id_semaforo = i+'0';
         char* id_parent;
         sprintf(id_parent, "%d", fabrica_pid);
+        printf("parent pliiiss %i\n", strtol(id_semaforo, NULL, 10));
         myargs[0] = strdup("./semaforo");
         myargs[1] = &id_semaforo;
         myargs[2] = data_in->lines[1][2+i];
