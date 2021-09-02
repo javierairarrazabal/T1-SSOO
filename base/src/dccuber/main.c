@@ -56,7 +56,7 @@ int main(int argc, char const *argv[])
       if (!semaforo_id)
       {
         printf("Hola soy la semaforo %d\n", i);
-        execlp(".../semaforo", "", NULL);
+        execlp("../../semaforo", "", NULL);
       }
     }
   }
