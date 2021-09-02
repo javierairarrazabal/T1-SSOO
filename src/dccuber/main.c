@@ -44,11 +44,19 @@ int main(int argc, char const *argv[])
     printf("Hola soy la fabrica mi pid es %i\n", getpid());
 
     // // Crear RePARTIDORES
-    // for (int i = 0; i < cant_repartidores; i++)
-    // {
-    //   repartidores_pid[i] = fork();
-    //   execlp("../repartidor/main", "", NULL);
-    // }
+    for (int i = 0; i < cant_repartidores; i++)
+    {
+      repartidores_pid[i] = fork();
+      if (!repartidores_pid[i])
+      {
+        char* myargs[3];
+        char id_repartidor = i+'0';
+        myargs[0] = strdup("./repartidor");
+        myargs[1] = &id_repartidor;
+        myargs[2] = NULL;
+        execvp(myargs[0], myargs);
+      }
+    }
   } else {
     sprintf(pid_parent, "%d", fabrica_pid);
     for (int i = 0; i < 3; i++)
