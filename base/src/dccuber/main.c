@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <unistd.h>
-#include <stdlib.h>
 
 #include "../file_manager/manager.h"
 
@@ -31,11 +30,11 @@ int main(int argc, char const *argv[])
 
   // inicializar variables
   pid_t fabrica_id;
-  //pid_t *semaforos_id = calloc(3, sizeof(pid_t));
   pid_t semaforo_id;
   int cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
-  pid_t *repartidores_id = calloc(cant_repartidores, sizeof(pid_t));
-  int parent = 0;
+  pid_t repartidore_id;
+  printf("Liberando memoria...\n");
+  input_file_destroy(data_in);
 
   // Crear fábrica
   fabrica_id = fork();
@@ -58,17 +57,7 @@ int main(int argc, char const *argv[])
       {
         printf("Hola soy la semaforo %d\n", i);
         //execlp("../semaforo/main", "", NULL);
-      } else {
-        parent = 1;
       }
     }
-    if (parent)
-    {
-      printf("Liberando memoria...\n");
-      input_file_destroy(data_in);
-      free(repartidores_id);
-    }
   }
-
-  
 }
