@@ -37,7 +37,7 @@ int main(int argc, char const *argv[])
   char* fabrica_id = malloc(sizeof(char));
   // Crear fábrica
   fabrica_pid = fork();
-  *fabrica_id = fabrica_pid;
+  *fabrica_id = fabrica_pid + '0';
 
   if (!fabrica_pid) // Solo el fabrica cumple el if
   {
@@ -58,7 +58,6 @@ int main(int argc, char const *argv[])
         printf("Hola soy el semaforo %d\n", i);
         char* myargs[5];
         char id_semaforo = i+'0';
-        //char parent_id = fabrica_id+'0';
         myargs[0] = strdup("./semaforo");
         myargs[1] = &id_semaforo;
         myargs[2] = data_in->lines[1][2+i];
