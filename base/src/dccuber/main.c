@@ -31,8 +31,9 @@ int main(int argc, char const *argv[])
   // inicializar variables
   pid_t fabrica_id;
   pid_t *semaforos_id = calloc(3, sizeof(pid_t));
-  int cant_repartidores = data_in->lines[1][1];
+  int cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
   pid_t *repartidores_id = calloc(cant_repartidores, sizeof(pid_t));
+  int parent = 0;
 
   // Crear fábrica
   fabrica_id = fork();
@@ -42,21 +43,31 @@ int main(int argc, char const *argv[])
     printf("Hola soy la fabrica\n");
 
     // Crear RePARTIDORES
-    for (int i = 0; i < cant_repartidores; i++)
+    // for (int i = 0; i < cant_repartidores; i++)
+    // {
+    //   repartidores_id[i] = fork();
+    //   execlp("../repartidor/main", "", NULL);
+    // }
+  } else {
+    for (int i = 0; i < 3; i++)
     {
-      repartidores_id[i] = fork();
-      execlp("../repartidor/main", "", NULL);
+      semaforos_id[i] = fork();
+      if (!semaforos_id[i])
+      {
+        printf("Hola soy la semaforo %d\n", i);
+        //execlp("../semaforo/main", "", NULL);
+      } else {
+        parent = 1;
+      }
+    }
+    if (parent)
+    {
+      printf("Liberando memoria...\n");
+      input_file_destroy(data_in);
+      free(semaforos_id);
+      free(repartidores_id);
     }
   }
 
-  for (int i = 0; i < 3; i++)
-  {
-    semaforos_id[i] = fork();
-    execlp("../semaforo/main", "", NULL);
-  }
-
-  printf("Liberando memoria...\n");
-  input_file_destroy(data_in);
-  free(semaforos_id);
-  free(repartidores_id);
+  
 }
