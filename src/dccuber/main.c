@@ -34,8 +34,6 @@ int main(int argc, char const *argv[])
   pid_t* semaforos_id = calloc(3, sizeof(pid_t));
   int cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
   pid_t* repartidores_id = calloc(cant_repartidores, sizeof(pid_t));;
-  printf("Liberando memoria...\n");
-  input_file_destroy(data_in);
 
   // Crear fábrica
   fabrica_id = fork();
@@ -58,10 +56,12 @@ int main(int argc, char const *argv[])
       {
         printf("Hola soy el semaforo %d\n", i);
         char *myargs[2];
-        myargs[0] = strdup("semaforo");
+        myargs[0] = strdup("./semaforo");
         myargs[1] = NULL;
         execvp(myargs[0], myargs);
       }
     }
+    printf("Liberando memoria...\n");
+    input_file_destroy(data_in);
   }
 }
