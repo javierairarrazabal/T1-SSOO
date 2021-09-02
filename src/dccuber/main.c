@@ -55,7 +55,7 @@ int main(int argc, char const *argv[])
       semaforos_id[i] = fork();
       if (!semaforos_id[i])
       {
-        printf("Hola soy la semaforo %d\n", i);
+        printf("Hola soy el semaforo %d\n", i);
         char *myargs[2];
         myargs[0] = strdup("semaforo");
         myargs[0] = NULL;
