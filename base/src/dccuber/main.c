@@ -32,7 +32,7 @@ int main(int argc, char const *argv[])
   pid_t fabrica_id;
   pid_t semaforo_id;
   int cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
-  pid_t repartidore_id;
+  pid_t repartidor_id;
   printf("Liberando memoria...\n");
   input_file_destroy(data_in);
 
@@ -56,6 +56,7 @@ int main(int argc, char const *argv[])
       if (!semaforo_id)
       {
         printf("Hola soy la semaforo %d\n", i);
+        break;
         //execlp("../semaforo/main", "", NULL);
       }
     }
