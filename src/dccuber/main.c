@@ -30,7 +30,7 @@ int main(int argc, char const *argv[])
 
   // inicializar variables
   pid_t fabrica_id;
-  pid_t semaforo_id;
+  pid_t* semaforos_id = calloc(3, sizeof(pid_t));
   int cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
   pid_t repartidor_id;
   printf("Liberando memoria...\n");
@@ -52,8 +52,8 @@ int main(int argc, char const *argv[])
   } else {
     for (int i = 0; i < 3; i++)
     {
-      semaforo_id = fork();
-      if (!semaforo_id)
+      semaforos_id[i] = fork();
+      if (!semaforos_id[i])
       {
         printf("Hola soy la semaforo %d\n", i);
         break;
