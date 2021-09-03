@@ -24,15 +24,14 @@ void handle_sigusr2(int sig, siginfo_t *siginfo, void *context)
 int main(int argc, char const *argv[])
 {
   connect_sigaction(SIGUSR1, handle_sigusr2);
-  int id = strtol(argv[1], NULL, 10);
-  estado_semaforos[0] = strtol(argv[2], NULL, 10);
-  estado_semaforos[1] = strtol(argv[3], NULL, 10);
-  estado_semaforos[2] = strtol(argv[4], NULL, 10);
-  ubicacion_semaforos[0] = strtol(argv[5], NULL, 10);
-  ubicacion_semaforos[1] = strtol(argv[6], NULL, 10);
-  ubicacion_semaforos[2] = strtol(argv[7], NULL, 10);
-  ubicacion_bodega = strtol(argv[8], NULL, 10);
-  printf("I'm the REPARTIDOR process and my PID is: %i, my id is %i\n", getpid(), id);
+  estado_semaforos[0] = strtol(argv[1], NULL, 10);
+  estado_semaforos[1] = strtol(argv[2], NULL, 10);
+  estado_semaforos[2] = strtol(argv[3], NULL, 10);
+  ubicacion_semaforos[0] = strtol(argv[4], NULL, 10);
+  ubicacion_semaforos[1] = strtol(argv[5], NULL, 10);
+  ubicacion_semaforos[2] = strtol(argv[6], NULL, 10);
+  ubicacion_bodega = strtol(argv[7], NULL, 10);
+  printf("I'm the REPARTIDOR process and my PID is: %i\n", getpid());
   sleep(1);
   while (true)
   {
@@ -64,7 +63,7 @@ int main(int argc, char const *argv[])
     }
     else
     {
-      printf("%i llego a la bodega\n", id);
+      printf("%i llego a la bodega\n", getpid());
       exit(0);
     }
     if (distancia == ubicacion_semaforos[0] - 1)
