@@ -9,7 +9,7 @@
 
 int semaforos[3] = {1, 1, 1};
 int semaforos_pid[3];
-int primer_repartidor_pid;
+pid_t* repartidores_pid;
 
 void handle_sigalrm(int sig)
 {
@@ -59,8 +59,8 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
   int number_received = siginfo->si_value.sival_int;
   semaforos[number_received] = !semaforos[number_received];
   printf("Padre: Recibi semaforo id %i en estado %i\n", number_received, semaforos[number_received]);
-  printf("Primer rep %i/n", primer_repartidor_pid);
-  send_signal_with_int(primer_repartidor_pid, number_received);
+  printf("Primer rep %i/n", repartidores_pid[0]);
+  send_signal_with_int(repartidores_pid[0], number_received);
 }
 
 int main(int argc, char const *argv[])
@@ -91,7 +91,7 @@ int main(int argc, char const *argv[])
   // inicializar variables
   pid_t fabrica_pid;
   int cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
-  pid_t* repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
+  repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
   char* pid_parent = malloc(sizeof(char));
   char* repartidores_id = calloc(cant_repartidores, sizeof(char));
   int status_main;
@@ -131,7 +131,6 @@ int main(int argc, char const *argv[])
       myargs[9] = NULL;
       execvp(myargs[0], myargs);
     } else {
-      primer_repartidor_pid = repartidores_pid[0];
       signal(SIGALRM, handle_sigalrm);
       alarm(strtol(data_in->lines[1][0], NULL, 10));
       connect_sigaction(SIGUSR1, handle_sigusr1);
