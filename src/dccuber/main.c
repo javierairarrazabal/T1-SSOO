@@ -19,7 +19,7 @@ void handle_sigalrm(int sig)
   int tiempo_generacion = strtol(data_in->lines[1][0], NULL, 10);
   pid_t repartidor_pid;
   char* estado_semaforos[3];
-  int repartidor_id;
+  char repartidor_id;
   char* ubicacion_semaforos[3];
   char* ubicacion_bodega;
 
@@ -94,9 +94,6 @@ int main(int argc, char const *argv[])
   char* repartidores_id = calloc(cant_repartidores, sizeof(char));
   int status_main;
   int status_fabrica;
-  char* estado_semaforos[3];
-  char* ubicacion_semaforos[3];
-  char* ubicacion_bodega;
   // Crear fábrica
   fabrica_pid = fork();
 
@@ -108,6 +105,9 @@ int main(int argc, char const *argv[])
     repartidores_pid[0] = fork();
     if (!repartidores_pid[0])
     {
+      char* estado_semaforos[3];
+      char* ubicacion_semaforos[3];
+      char* ubicacion_bodega;
       char* myargs[10];
       sprintf(&repartidores_id[0], "%d", 0);
       sprintf(estado_semaforos[0], "%d", semaforos[0]);
