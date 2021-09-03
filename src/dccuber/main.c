@@ -8,6 +8,7 @@
 #include "../file_manager/manager.h"
 
 int semaforos[3] = {1, 1, 1};
+int semaforos_pid[3];
 
 void handle_sigalrm(int sig)
 {
@@ -18,23 +19,33 @@ void handle_sigalrm(int sig)
   int tiempo_generacion = strtol(data_in->lines[1][0], NULL, 10);
   pid_t repartidor_pid;
   int estado_semaforo[3];
+  int repartidor_id;
+  int ubicacion_semaforo[3];
+  ubicacion_semaforo[0] = strtol(data_in->lines[0][0], NULL, 10);
+  ubicacion_semaforo[1] = strtol(data_in->lines[0][1], NULL, 10);
+  ubicacion_semaforo[2] = strtol(data_in->lines[0][2], NULL, 10);
+  int ubicacion_bodega = strtol(data_in->lines[0][3], NULL, 10);
 
   for (int i = 1; i < cantidad_restante; i++)
   {
     repartidor_pid = fork();
     if (!repartidor_pid)
     {
-      char* myargs[6];
-      sprintf(&repartidor_pid, "%d", i);
+      char* myargs[10];
+      sprintf(&repartidor_id, "%d", i);
       sprintf(&estado_semaforo[0], "%d", semaforos[0]);
       sprintf(&estado_semaforo[1], "%d", semaforos[1]);
       sprintf(&estado_semaforo[2], "%d", semaforos[2]);
       myargs[0] = strdup("./repartidor");
-      myargs[1] = &repartidor_pid;
+      myargs[1] = &repartidor_id;
       myargs[2] = &estado_semaforo[0];
       myargs[3] = &estado_semaforo[1];
       myargs[4] = &estado_semaforo[2];
-      myargs[5] = NULL;
+      myargs[5] = &ubicacion_semaforo[0];
+      myargs[6] = &ubicacion_semaforo[1];
+      myargs[7] = &ubicacion_semaforo[2];
+      myargs[8] = &ubicacion_bodega;
+      myargs[9] = NULL;
       execvp(myargs[0], myargs);
     }
     sleep(tiempo_generacion);
@@ -46,6 +57,7 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
   int number_received = siginfo->si_value.sival_int;
   semaforos[number_received] = !semaforos[number_received];
   printf("Padre: Recibi semaforo id %i en estado %i\n", number_received, semaforos[number_received]);
+  send_signal_with_int(semaforos_pid[number_received], number_received);
 }
 
 int main(int argc, char const *argv[])
@@ -75,7 +87,6 @@ int main(int argc, char const *argv[])
 
   // inicializar variables
   pid_t fabrica_pid;
-  pid_t* semaforos_pid = calloc(3, sizeof(pid_t));
   int cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
   pid_t* repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
   char* pid_parent = malloc(sizeof(char));
@@ -83,6 +94,11 @@ int main(int argc, char const *argv[])
   int status_main;
   int status_fabrica;
   int estado_semaforo[3];
+  int ubicacion_semaforo[3];
+  ubicacion_semaforo[0] = strtol(data_in->lines[0][0], NULL, 10);
+  ubicacion_semaforo[1] = strtol(data_in->lines[0][1], NULL, 10);
+  ubicacion_semaforo[2] = strtol(data_in->lines[0][2], NULL, 10);
+  int ubicacion_bodega = strtol(data_in->lines[0][3], NULL, 10);
   // Crear fábrica
   fabrica_pid = fork();
 
@@ -94,7 +110,7 @@ int main(int argc, char const *argv[])
     repartidores_pid[0] = fork();
     if (!repartidores_pid[0])
     {
-      char* myargs[3];
+      char* myargs[10];
       sprintf(&repartidores_id[0], "%d", 0);
       sprintf(&estado_semaforo[0], "%d", semaforos[0]);
       sprintf(&estado_semaforo[1], "%d", semaforos[1]);
@@ -104,7 +120,11 @@ int main(int argc, char const *argv[])
       myargs[2] = &estado_semaforo[0];
       myargs[3] = &estado_semaforo[1];
       myargs[4] = &estado_semaforo[2];
-      myargs[5] = NULL;
+      myargs[5] = &ubicacion_semaforo[0];
+      myargs[6] = &ubicacion_semaforo[1];
+      myargs[7] = &ubicacion_semaforo[2];
+      myargs[8] = &ubicacion_bodega;
+      myargs[9] = NULL;
       execvp(myargs[0], myargs);
     } else {
       signal(SIGALRM, handle_sigalrm);
