@@ -7,6 +7,8 @@
 
 #include "../file_manager/manager.h"
 
+bool semaforos[3] = {true, true, true};
+
 void handle_sigalrm(int sig)
 {
   printf("alarma\n");
@@ -35,7 +37,8 @@ void handle_sigalrm(int sig)
 void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
 {
   int number_received = siginfo->si_value.sival_int;
-  printf("Padre: Recibi semaforo en estado%i\n", number_received);
+  semaforos[number_received] = !semaforos[number_received];
+  printf("Padre: Recibi semaforo id %i en estado%i\n", number_received, semaforos[number_received]);
 }
 
 int main(int argc, char const *argv[])

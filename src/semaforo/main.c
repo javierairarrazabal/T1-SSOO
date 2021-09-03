@@ -19,7 +19,7 @@ int main(int argc, char const *argv[])
     prendido = !prendido;
     cambios ++;
     printf("SEMAFORO %i prendido: %d\n", id, prendido);
-    send_signal_with_int(parent_pid, prendido);
+    send_signal_with_int(parent_pid, id);
   };
   
 }
