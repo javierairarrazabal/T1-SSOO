@@ -32,10 +32,6 @@ int main(int argc, char const *argv[])
   ubicacion_semaforos[1] = strtol(argv[6], NULL, 10);
   ubicacion_semaforos[2] = strtol(argv[7], NULL, 10);
   ubicacion_bodega = strtol(argv[8], NULL, 10);
-  printf("ubicacion semaforo 1 %i\n", ubicacion_semaforos[0]);
-  printf("ubicacion semaforo 2 %i\n", ubicacion_semaforos[1]);
-  printf("ubicacion semaforo 3 %i\n", ubicacion_semaforos[2]);
-  printf("ubicacion bodega %i\n", ubicacion_semaforos[3]);
   // printf("I'm the REPARTIDOR process and my PID is: %i, my id is %i\n", getpid(), id);
   while (true)
   {
@@ -83,7 +79,7 @@ int main(int argc, char const *argv[])
         distancia++;
         printf("Repartidor %i: Semaforo 2 verde ubicado en %i\n", id, distancia);
       }
-      printf("Repartidor %i: Semaforo 1 rojo ubicado en %i\n", id, distancia);
+      printf("Repartidor %i: Semaforo 2 rojo ubicado en %i\n", id, distancia);
     }
     else if (distancia == ubicacion_semaforos[2] - 1)
     {
@@ -92,7 +88,7 @@ int main(int argc, char const *argv[])
         distancia++;
         printf("Repartidor %i: Semaforo 3 verde ubicado en %i\n", id, distancia);
       }
-      printf("Repartidor %i: Semaforo 1 rojo ubicado en %i\n", id, distancia);
+      printf("Repartidor %i: Semaforo 3 rojo ubicado en %i\n", id, distancia);
     }
     else
     {
