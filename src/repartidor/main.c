@@ -8,6 +8,12 @@
 #include <sys/wait.h>
 #include <stdbool.h>
 
+void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
+{
+  int number_received = siginfo->si_value.sival_int;
+  printf("Hijo: Recibi %i\n", number_received);
+}
+
 int main(int argc, char const *argv[])
 {
   connect_sigaction(SIGUSR1, handle_sigusr1);
@@ -21,10 +27,4 @@ int main(int argc, char const *argv[])
   printf("I'm the REPARTIDOR process and my PID is: %i, my id is %i\n", getpid(), id);
   int semaforo = 0;
   sleep(50);
-}
-
-void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
-{
-  int number_received = siginfo->si_value.sival_int;
-  printf("Hijo: Recibi %i\n", number_received);
 }
