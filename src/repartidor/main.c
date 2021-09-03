@@ -26,5 +26,5 @@ int main(int argc, char const *argv[])
   int distancia = 0;
   printf("I'm the REPARTIDOR process and my PID is: %i, my id is %i\n", getpid(), id);
   int semaforo = 0;
-  sleep(50);
+  sleep(200);
 }
