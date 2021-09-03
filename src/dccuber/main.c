@@ -84,6 +84,7 @@ int main(int argc, char const *argv[])
       myargs[2] = NULL;
       execvp(myargs[0], myargs);
     } else {
+      printf("ENTREEE\n");
       signal(SIGALRM, handle_sigalrm);
       alarm(1);
     }
