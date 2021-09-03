@@ -39,7 +39,7 @@ void handle_sigalrm(int sig)
       sprintf(&ubicacion_semaforos[1], "%d", strtol(data_in->lines[0][1], NULL, 10));
       sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
       sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
-      sprintf(&pid_parent, "%d", fabrica_pid);
+      sprintf(&pid_parent, "%d", getpid());
       if (i == cantidad_restante-1)
       {
         sprintf(&ultimo, "%d", 1);
@@ -110,7 +110,6 @@ int main(int argc, char const *argv[])
   char *pid_parent = malloc(sizeof(char));
   int status_main;
   int status_fabrica;
-  int pid_parent2;
   // Crear fábrica
   fabrica_pid = fork();
 
@@ -125,6 +124,7 @@ int main(int argc, char const *argv[])
       int ubicacion_semaforos[3];
       int ubicacion_bodega;
       int ultimo;
+      int pid_parent2;
       char *myargs[11];
       sprintf(&estado_semaforos[0], "%d", semaforos[0]);
       sprintf(&estado_semaforos[1], "%d", semaforos[1]);
@@ -134,7 +134,7 @@ int main(int argc, char const *argv[])
       sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
       sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
       sprintf(&ultimo, "%d", 0);
-      sprintf(&pid_parent2, "%d", fabrica_pid);
+      sprintf(&pid_parent2, "%d", getpid());
       myargs[0] = strdup("./repartidor");
       myargs[1] = &estado_semaforos[0];
       myargs[2] = &estado_semaforos[1];
