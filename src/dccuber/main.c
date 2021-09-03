@@ -17,6 +17,7 @@ void handle_sigalrm(int sig)
   int cantidad_restante = strtol(data_in->lines[1][1], NULL, 10);
   int tiempo_generacion = strtol(data_in->lines[1][0], NULL, 10);
   pid_t repartidor_pid;
+  bool estado_semaforo[3];
 
   for (int i = 1; i < cantidad_restante; i++)
   {
@@ -25,11 +26,14 @@ void handle_sigalrm(int sig)
     {
       char* myargs[6];
       sprintf(&repartidor_pid, "%d", i);
+      sprintf(&estado_semaforo[0], "%d", semaforos[0]);
+      sprintf(&estado_semaforo[1], "%d", semaforos[1]);
+      sprintf(&estado_semaforo[2], "%d", semaforos[2]);
       myargs[0] = strdup("./repartidor");
       myargs[1] = &repartidor_pid;
-      myargs[2] = &semaforos[0];
-      myargs[3] = &semaforos[1];
-      myargs[4] = &semaforos[2];
+      myargs[2] = &estado_semaforo[0];
+      myargs[3] = &estado_semaforo[1];
+      myargs[4] = &estado_semaforo[2];
       myargs[5] = NULL;
       execvp(myargs[0], myargs);
     }
