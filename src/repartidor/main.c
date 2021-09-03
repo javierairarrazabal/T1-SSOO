@@ -8,7 +8,7 @@
 #include <sys/wait.h>
 #include <stdbool.h>
 
-bool* semaforos[3];
+int* semaforos[3];
 
 int main(int argc, char const *argv[])
 {
