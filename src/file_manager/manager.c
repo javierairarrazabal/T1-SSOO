@@ -125,3 +125,15 @@ void send_signal_with_int(int pid, int payload)
   sig.sival_int = payload;
   sigqueue(pid, SIGUSR1, sig);
 }
+
+/** Sends a SIGUSR1 signal to a process with an int payload
+ * 
+ * @param pid: Process that will receive the signal
+ * @param payload: Payload to send along with the signal
+*/
+void send_signal_with_int2(int pid, int payload)
+{
+  union sigval sig = {};
+  sig.sival_int = payload;
+  sigqueue(pid, SIGUSR2, sig);
+}
