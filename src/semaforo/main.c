@@ -13,7 +13,7 @@ int main(int argc, char const *argv[])
   {
     sleep(delay);
     prendido = !prendido;
-    printf("SEMAFORO prendido: %d\n", prendido);
+    printf("SEMAFORO %i prendido: %d\n", id, prendido);
   };
   
 }
