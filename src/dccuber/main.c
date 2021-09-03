@@ -17,7 +17,7 @@ void handle_sigalrm(int sig)
   int cantidad_restante = strtol(data_in->lines[1][1], NULL, 10);
   int tiempo_generacion = strtol(data_in->lines[1][0], NULL, 10);
   pid_t repartidor_pid;
-  bool estado_semaforo[3];
+  int estado_semaforo[3];
 
   for (int i = 1; i < cantidad_restante; i++)
   {
