@@ -88,8 +88,8 @@ int main(int argc, char const *argv[])
     } else {
       printf("ENTREEE\n");
       signal(SIGALRM, handle_sigalrm);
-      alarm(2);
-      while ((wpid = wait(&status_fabrica)) > 0);
+      alarm(strtol(data_in->lines[1][0], NULL, 10));
+      wait(NULL);
     }
   } else {
     sprintf(pid_parent, "%d", fabrica_pid);
