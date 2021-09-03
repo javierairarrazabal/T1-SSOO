@@ -23,7 +23,7 @@ void handle_sigusr2(int sig, siginfo_t *siginfo, void *context)
 
 int main(int argc, char const *argv[])
 {
-  connect_sigaction(SIGUSR1, handle_sigusr2);
+  connect_sigaction(SIGUSR2, handle_sigusr2);
   int id = strtol(argv[1], NULL, 10);
   estado_semaforos[0] = strtol(argv[2], NULL, 10);
   estado_semaforos[1] = strtol(argv[3], NULL, 10);
