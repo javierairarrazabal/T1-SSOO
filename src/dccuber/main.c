@@ -82,6 +82,7 @@ int main(int argc, char const *argv[])
   char* repartidores_id = calloc(cant_repartidores, sizeof(char));
   int status_main;
   int status_fabrica;
+  int estado_semaforo[3];
   // Crear fábrica
   fabrica_pid = fork();
 
@@ -95,9 +96,15 @@ int main(int argc, char const *argv[])
     {
       char* myargs[3];
       sprintf(&repartidores_id[0], "%d", 0);
+      sprintf(&estado_semaforo[0], "%d", semaforos[0]);
+      sprintf(&estado_semaforo[1], "%d", semaforos[1]);
+      sprintf(&estado_semaforo[2], "%d", semaforos[2]);
       myargs[0] = strdup("./repartidor");
       myargs[1] = &repartidores_id[0];
-      myargs[2] = NULL;
+      myargs[2] = &estado_semaforo[0];
+      myargs[3] = &estado_semaforo[1];
+      myargs[4] = &estado_semaforo[2];
+      myargs[5] = NULL;
       execvp(myargs[0], myargs);
     } else {
       signal(SIGALRM, handle_sigalrm);
