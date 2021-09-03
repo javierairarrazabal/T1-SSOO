@@ -42,25 +42,25 @@ int main(int argc, char const *argv[])
       cant_turnos[1]++;
       cant_turnos[2]++;
       cant_turnos[3]++;
-      printf("entro al primer caso\n");
+      printf("entro al primer caso distancia %i\n", distancia);
     }
     else if (ubicacion_semaforos[0] <= distancia < ubicacion_semaforos[1])
     {
       cant_turnos[1]++;
       cant_turnos[2]++;
       cant_turnos[3]++;
-      printf("entro al segundo caso\n");
+      printf("entro al segundo caso distancia %i\n", distancia);
     }
     else if (ubicacion_semaforos[1] <= distancia < ubicacion_semaforos[2])
     {
       cant_turnos[2]++;
       cant_turnos[3]++;
-      printf("entro al tercer caso\n");
+      printf("entro al tercer caso distancia %i\n", distancia);
     }
     else if (ubicacion_semaforos[2] <= distancia < ubicacion_semaforos[3])
     {
       cant_turnos[3]++;
-      printf("entro al cuarto caso\n");
+      printf("entro al cuarto caso distancia %i\n", distancia);
     }
     else
     {
