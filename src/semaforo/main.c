@@ -17,10 +17,8 @@ int main(int argc, char const *argv[])
   {
     sleep(delay);
     prendido = !prendido;
-    cambios ++;
-    printf("SEMAFORO %i prendido: %d\n", id, prendido);
+    cambios++;
+    //printf("SEMAFORO %i prendido: %d\n", id, prendido);
     send_signal_with_int(parent_pid, id);
   };
-  
 }
-
