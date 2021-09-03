@@ -16,7 +16,7 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
 
 int main(int argc, char const *argv[])
 {
-  connect_sigaction(SIGUSR1, handle_sigusr1);
+  //connect_sigaction(SIGUSR1, handle_sigusr1);
   int id = strtol(argv[1], NULL, 10);
   int turnos[4];
   turnos[0] = 0;

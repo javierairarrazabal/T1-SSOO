@@ -85,10 +85,9 @@ int main(int argc, char const *argv[])
       myargs[2] = NULL;
       execvp(myargs[0], myargs);
     } else {
-      printf("ENTREEE\n");
       signal(SIGALRM, handle_sigalrm);
       alarm(strtol(data_in->lines[1][0], NULL, 10));
-      send_signal_with_int(repartidores_pid[0], 2);
+      //send_signal_with_int(repartidores_pid[0], 2);
       waitpid(repartidores_pid[0], &status_fabrica, 0);
     }
   } else {
