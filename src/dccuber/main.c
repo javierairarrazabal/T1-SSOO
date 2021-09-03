@@ -6,29 +6,35 @@
 
 #include "../file_manager/manager.h"
 
+/** Connects a signal to a more powerful handler
+ *
+ * @param sig: Received signal (ex: SIGUSR1)
+ * @param handler: Function to be called when the signal is received
+*/
+
 void handle_sigalarm(int sig)
 {
   printf("alarma");
-  char *filename = "input.txt";
-  InputFile *data_in = read_file(filename);
-  int cantidad_restante = strtol(data_in->lines[1][1], NULL, 10);
-  int tiempo_generacion = strtol(data_in->lines[1][0], NULL, 10);
-  pid_t repartidor_pid;
+  // char *filename = "input.txt";
+  // InputFile *data_in = read_file(filename);
+  // int cantidad_restante = strtol(data_in->lines[1][1], NULL, 10);
+  // int tiempo_generacion = strtol(data_in->lines[1][0], NULL, 10);
+  // pid_t repartidor_pid;
 
-  for (int i = 1; i < cantidad_restante; i++)
-  {
-    repartidor_pid = fork();
-    if (!repartidor_pid)
-    {
-      char* myargs[3];
-      sprintf(&repartidor_pid, "%d", i);
-      myargs[0] = strdup("./repartidor");
-      myargs[1] = &repartidor_pid;
-      myargs[2] = NULL;
-      execvp(myargs[0], myargs);
-    }
-    sleep(tiempo_generacion);
-  }
+  // for (int i = 1; i < cantidad_restante; i++)
+  // {
+  //   repartidor_pid = fork();
+  //   if (!repartidor_pid)
+  //   {
+  //     char* myargs[3];
+  //     sprintf(&repartidor_pid, "%d", i);
+  //     myargs[0] = strdup("./repartidor");
+  //     myargs[1] = &repartidor_pid;
+  //     myargs[2] = NULL;
+  //     execvp(myargs[0], myargs);
+  //   }
+  //   sleep(tiempo_generacion);
+  // }
   
 }
 
