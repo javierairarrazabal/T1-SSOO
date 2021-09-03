@@ -66,7 +66,7 @@ int main(int argc, char const *argv[])
   char* pid_parent = malloc(sizeof(char));
   char* repartidores_id = calloc(cant_repartidores, sizeof(char));
   int status_main;
-  int status_fabrica = 0;
+  int status_fabrica;
   // Crear fábrica
   fabrica_pid = fork();
 
@@ -89,7 +89,7 @@ int main(int argc, char const *argv[])
       signal(SIGALRM, handle_sigalrm);
       alarm(strtol(data_in->lines[1][0], NULL, 10));
       send_signal_with_int(repartidores_pid[0], 2);
-      wait(NULL);
+      waitpid(repartidores_pid[0], &status_fabrica, 0);
     }
   } else {
     sprintf(pid_parent, "%d", fabrica_pid);
@@ -109,7 +109,6 @@ int main(int argc, char const *argv[])
       }
     }
     waitpid(fabrica_pid, &status_main, 0);
-
     printf("Liberando memoria...\n");
     input_file_destroy(data_in);
     //free(repartidores_pid);
