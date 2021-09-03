@@ -30,7 +30,12 @@ void handle_sigalrm(int sig)
     }
     sleep(tiempo_generacion);
   }
-  
+}
+
+void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
+{
+  int number_received = siginfo->si_value.sival_int;
+  printf("Padre: Recibi semaforo en estado%i\n", number_received);
 }
 
 int main(int argc, char const *argv[])
@@ -87,7 +92,7 @@ int main(int argc, char const *argv[])
     } else {
       signal(SIGALRM, handle_sigalrm);
       alarm(strtol(data_in->lines[1][0], NULL, 10));
-      //send_signal_with_int(repartidores_pid[0], 2);
+      connect_sigaction(SIGUSR1, handle_sigusr1);
       waitpid(repartidores_pid[0], &status_fabrica, 0);
     }
   } else {

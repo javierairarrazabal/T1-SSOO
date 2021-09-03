@@ -1,6 +1,9 @@
+#include <signal.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <stdbool.h>
+#include <sys/wait.h>
 
 int main(int argc, char const *argv[])
 {
@@ -16,6 +19,8 @@ int main(int argc, char const *argv[])
     prendido = !prendido;
     cambios ++;
     printf("SEMAFORO %i prendido: %d\n", id, prendido);
+    send_signal_with_int(parent_pid, prendido);
   };
   
 }
+
