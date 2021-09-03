@@ -53,7 +53,7 @@ int main(int argc, char const *argv[])
         char* myargs[3];
         repartidores_id[j] = j+'0';
         myargs[0] = strdup("./repartidor");
-        myargs[1] = repartidores_id[j];
+        myargs[1] = &repartidores_id[j];
         myargs[2] = NULL;
         execvp(myargs[0], myargs);
       }
