@@ -31,6 +31,8 @@ int main(int argc, char const *argv[])
   ubicacion_semaforos[1] = strtol(argv[5], NULL, 10);
   ubicacion_semaforos[2] = strtol(argv[6], NULL, 10);
   ubicacion_bodega = strtol(argv[7], NULL, 10);
+  int ultimo = strtol(argv[8], NULL, 10);
+  int parent_pid = strtol(argv[9], NULL, 10);
   printf("I'm the REPARTIDOR process and my PID is: %i\n", getpid());
   sleep(1);
   while (true)
@@ -64,7 +66,12 @@ int main(int argc, char const *argv[])
     else
     {
       printf("%i llego a la bodega\n", getpid());
-      exit(0);
+      if (ultimo)
+      {
+        kill(parent_pid, SIGUSR2);
+      }
+      while (true);
+      
     }
     if (distancia == ubicacion_semaforos[0] - 1)
     {

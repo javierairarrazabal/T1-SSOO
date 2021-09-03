@@ -11,6 +11,7 @@ int semaforos[3] = {1, 1, 1};
 int semaforos_pid[3];
 pid_t *repartidores_pid;
 int cant_repartidores;
+pid_t fabrica_pid;
 
 void handle_sigalrm(int sig)
 {
@@ -22,13 +23,15 @@ void handle_sigalrm(int sig)
   int estado_semaforos[3];
   int ubicacion_semaforos[3];
   int ubicacion_bodega;
+  int ultimo;
+  int pid_parent;
 
   for (int i = 1; i < cantidad_restante; i++)
   {
     repartidores_pid[i] = fork();
     if (!repartidores_pid[i])
     {
-      char *myargs[9];
+      char *myargs[11];
       sprintf(&estado_semaforos[0], "%d", semaforos[0]);
       sprintf(&estado_semaforos[1], "%d", semaforos[1]);
       sprintf(&estado_semaforos[2], "%d", semaforos[2]);
@@ -36,6 +39,13 @@ void handle_sigalrm(int sig)
       sprintf(&ubicacion_semaforos[1], "%d", strtol(data_in->lines[0][1], NULL, 10));
       sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
       sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
+      sprintf(&pid_parent, "%d", fabrica_pid);
+      if (i == cantidad_restante-1)
+      {
+        sprintf(&ultimo, "%d", 1);
+      } else {
+        sprintf(&ultimo, "%d", 0);
+      }
       myargs[0] = strdup("./repartidor");
       myargs[1] = &estado_semaforos[0];
       myargs[2] = &estado_semaforos[1];
@@ -44,7 +54,9 @@ void handle_sigalrm(int sig)
       myargs[5] = &ubicacion_semaforos[1];
       myargs[6] = &ubicacion_semaforos[2];
       myargs[7] = &ubicacion_bodega;
-      myargs[8] = NULL;
+      myargs[8] = &ultimo;
+      myargs[9] = &pid_parent;
+      myargs[10] = NULL;
       execvp(myargs[0], myargs);
     }
     sleep(tiempo_generacion);
@@ -60,6 +72,11 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
   {
     send_signal_with_int(repartidores_pid[i], number_received);
   }
+}
+
+void handle_sigusr2(int sig)
+{
+  printf("Llegó el último\n");
 }
 
 int main(int argc, char const *argv[])
@@ -88,19 +105,18 @@ int main(int argc, char const *argv[])
   printf("\n");
 
   // inicializar variables
-  pid_t fabrica_pid;
   cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
   repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
   char *pid_parent = malloc(sizeof(char));
   int status_main;
   int status_fabrica;
+  int pid_parent2;
   // Crear fábrica
   fabrica_pid = fork();
 
   if (!fabrica_pid) // Solo el fabrica cumple el if
   {
     printf("Hola soy la fabrica mi pid es %i\n", getpid());
-    int wpid;
     // // Crear RePARTIDORES
     repartidores_pid[0] = fork();
     if (!repartidores_pid[0])
@@ -108,7 +124,8 @@ int main(int argc, char const *argv[])
       int estado_semaforos[3];
       int ubicacion_semaforos[3];
       int ubicacion_bodega;
-      char *myargs[9];
+      int ultimo;
+      char *myargs[11];
       sprintf(&estado_semaforos[0], "%d", semaforos[0]);
       sprintf(&estado_semaforos[1], "%d", semaforos[1]);
       sprintf(&estado_semaforos[2], "%d", semaforos[2]);
@@ -116,6 +133,8 @@ int main(int argc, char const *argv[])
       sprintf(&ubicacion_semaforos[1], "%d", strtol(data_in->lines[0][1], NULL, 10));
       sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
       sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
+      sprintf(&ultimo, "%d", 0);
+      sprintf(&pid_parent2, "%d", fabrica_pid);
       myargs[0] = strdup("./repartidor");
       myargs[1] = &estado_semaforos[0];
       myargs[2] = &estado_semaforos[1];
@@ -124,12 +143,15 @@ int main(int argc, char const *argv[])
       myargs[5] = &ubicacion_semaforos[1];
       myargs[6] = &ubicacion_semaforos[2];
       myargs[7] = &ubicacion_bodega;
-      myargs[8] = NULL;
+      myargs[8] = &ultimo;
+      myargs[9] = &pid_parent2;
+      myargs[10] = NULL;
       execvp(myargs[0], myargs);
     }
     else
     {
       signal(SIGALRM, handle_sigalrm);
+      signal(SIGUSR2, handle_sigusr2);
       alarm(strtol(data_in->lines[1][0], NULL, 10));
       connect_sigaction(SIGUSR1, handle_sigusr1);
       waitpid(repartidores_pid[0], &status_fabrica, 0);
