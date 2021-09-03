@@ -3,16 +3,12 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <sys/wait.h>
+#include <stdbool.h>
 
 #include "../file_manager/manager.h"
 
-/** Connects a signal to a more powerful handler
- *
- * @param sig: Received signal (ex: SIGUSR1)
- * @param handler: Function to be called when the signal is received
-*/
 
-void handle_sigalarm(int sig)
+void handle_sigalrm(int sig)
 {
   printf("alarma");
   // char *filename = "input.txt";
@@ -88,7 +84,7 @@ int main(int argc, char const *argv[])
       myargs[2] = NULL;
       execvp(myargs[0], myargs);
     } else {
-      signal(SIGALRM, handle_sigalarm);
+      signal(SIGALRM, handle_sigalrm);
       alarm(1);
     }
   } else {
@@ -113,5 +109,6 @@ int main(int argc, char const *argv[])
     input_file_destroy(data_in);
     //free(repartidores_pid);
     //free(semaforos_pid);
+    return 0;
   }
 }
