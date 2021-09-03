@@ -7,7 +7,7 @@
 
 #include "../file_manager/manager.h"
 
-bool semaforos[3] = {true, true, true};
+int semaforos[3] = {1, 1, 1};
 
 void handle_sigalrm(int sig)
 {
