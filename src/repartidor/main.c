@@ -75,7 +75,7 @@ int main(int argc, char const *argv[])
       if (estado_semaforos[1])
       {
         distancia++;
-        printf("Semaforo 1 verde ubicado en %i\n", distancia);
+        printf("Semaforo 2 verde ubicado en %i\n", distancia);
       }
     }
     else if (distancia == ubicacion_semaforos[2] - 1)
@@ -83,7 +83,7 @@ int main(int argc, char const *argv[])
       if (estado_semaforos[2])
       {
         distancia++;
-        printf("Semaforo 1 verde ubicado en %i\n", distancia);
+        printf("Semaforo 3 verde ubicado en %i\n", distancia);
       }
     }
     else
