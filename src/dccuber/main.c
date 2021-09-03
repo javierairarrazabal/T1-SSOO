@@ -121,6 +121,10 @@ int main(int argc, char const *argv[])
       sprintf(&ubicacion_semaforos[1], "%d", strtol(data_in->lines[0][1], NULL, 10));
       sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
       sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
+      printf("ubicacion semaforo 1 %i\n", ubicacion_semaforos[0]);
+      printf("ubicacion semaforo 2 %i\n", ubicacion_semaforos[1]);
+      printf("ubicacion semaforo 3 %i\n", ubicacion_semaforos[2]);
+      printf("ubicacion bodega %i\n", ubicacion_semaforos[3]);
       myargs[0] = strdup("./repartidor");
       myargs[1] = &repartidores_id[0];
       myargs[2] = &estado_semaforos[0];
