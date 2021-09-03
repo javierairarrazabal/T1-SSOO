@@ -18,12 +18,13 @@ void handle_sigalrm(int sig)
   int cantidad_restante = strtol(data_in->lines[1][1], NULL, 10);
   int tiempo_generacion = strtol(data_in->lines[1][0], NULL, 10);
   pid_t repartidor_pid;
-  int estado_semaforo[3];
+  char* estado_semaforos[3];
   int repartidor_id;
-  int ubicacion_semaforo[3];
-  ubicacion_semaforo[0] = strtol(data_in->lines[0][0], NULL, 10);
-  ubicacion_semaforo[1] = strtol(data_in->lines[0][1], NULL, 10);
-  ubicacion_semaforo[2] = strtol(data_in->lines[0][2], NULL, 10);
+  int ubicacion_semaforos[3];
+  char* distancia_semaforos[3];
+  ubicacion_semaforos[0] = strtol(data_in->lines[0][0], NULL, 10);
+  ubicacion_semaforos[1] = strtol(data_in->lines[0][1], NULL, 10);
+  ubicacion_semaforos[2] = strtol(data_in->lines[0][2], NULL, 10);
   int ubicacion_bodega = strtol(data_in->lines[0][3], NULL, 10);
 
   for (int i = 1; i < cantidad_restante; i++)
@@ -33,17 +34,21 @@ void handle_sigalrm(int sig)
     {
       char* myargs[10];
       sprintf(&repartidor_id, "%d", i);
-      sprintf(&estado_semaforo[0], "%d", semaforos[0]);
-      sprintf(&estado_semaforo[1], "%d", semaforos[1]);
-      sprintf(&estado_semaforo[2], "%d", semaforos[2]);
+      sprintf(&estado_semaforos[0], "%d", semaforos[0]);
+      sprintf(&estado_semaforos[1], "%d", semaforos[1]);
+      sprintf(&estado_semaforos[2], "%d", semaforos[2]);
+      sprintf(&distancia_semaforos[0], "%d", ubicacion_semaforos[0]);
+      sprintf(&distancia_semaforos[1], "%d", ubicacion_semaforos[1]);
+      sprintf(&distancia_semaforos[2], "%d", ubicacion_semaforos[2]);
+      sprintf(&ubicacion_bodega, "%d", ubicacion_bodega);
       myargs[0] = strdup("./repartidor");
       myargs[1] = &repartidor_id;
-      myargs[2] = &estado_semaforo[0];
-      myargs[3] = &estado_semaforo[1];
-      myargs[4] = &estado_semaforo[2];
-      myargs[5] = &ubicacion_semaforo[0];
-      myargs[6] = &ubicacion_semaforo[1];
-      myargs[7] = &ubicacion_semaforo[2];
+      myargs[2] = &estado_semaforos[0];
+      myargs[3] = &estado_semaforos[1];
+      myargs[4] = &estado_semaforos[2];
+      myargs[5] = &ubicacion_semaforos[0];
+      myargs[6] = &ubicacion_semaforos[1];
+      myargs[7] = &ubicacion_semaforos[2];
       myargs[8] = &ubicacion_bodega;
       myargs[9] = NULL;
       execvp(myargs[0], myargs);
@@ -93,11 +98,12 @@ int main(int argc, char const *argv[])
   char* repartidores_id = calloc(cant_repartidores, sizeof(char));
   int status_main;
   int status_fabrica;
-  int estado_semaforo[3];
-  int ubicacion_semaforo[3];
-  ubicacion_semaforo[0] = strtol(data_in->lines[0][0], NULL, 10);
-  ubicacion_semaforo[1] = strtol(data_in->lines[0][1], NULL, 10);
-  ubicacion_semaforo[2] = strtol(data_in->lines[0][2], NULL, 10);
+  char* estado_semaforos[3];
+  int ubicacion_semaforos[3];
+  char* distancia_semaforo[3];
+  ubicacion_semaforos[0] = strtol(data_in->lines[0][0], NULL, 10);
+  ubicacion_semaforos[1] = strtol(data_in->lines[0][1], NULL, 10);
+  ubicacion_semaforos[2] = strtol(data_in->lines[0][2], NULL, 10);
   int ubicacion_bodega = strtol(data_in->lines[0][3], NULL, 10);
   // Crear fábrica
   fabrica_pid = fork();
@@ -112,17 +118,21 @@ int main(int argc, char const *argv[])
     {
       char* myargs[10];
       sprintf(&repartidores_id[0], "%d", 0);
-      sprintf(&estado_semaforo[0], "%d", semaforos[0]);
-      sprintf(&estado_semaforo[1], "%d", semaforos[1]);
-      sprintf(&estado_semaforo[2], "%d", semaforos[2]);
+      sprintf(&estado_semaforos[0], "%d", semaforos[0]);
+      sprintf(&estado_semaforos[1], "%d", semaforos[1]);
+      sprintf(&estado_semaforos[2], "%d", semaforos[2]);
+      sprintf(&distancia_semaforo[0], "%d", ubicacion_semaforos[0]);
+      sprintf(&distancia_semaforo[1], "%d", ubicacion_semaforos[1]);
+      sprintf(&distancia_semaforo[2], "%d", ubicacion_semaforos[2]);
+      sprintf(ubicacion_bodega, "%d", ubicacion_bodega);
       myargs[0] = strdup("./repartidor");
       myargs[1] = &repartidores_id[0];
-      myargs[2] = &estado_semaforo[0];
-      myargs[3] = &estado_semaforo[1];
-      myargs[4] = &estado_semaforo[2];
-      myargs[5] = &ubicacion_semaforo[0];
-      myargs[6] = &ubicacion_semaforo[1];
-      myargs[7] = &ubicacion_semaforo[2];
+      myargs[2] = &estado_semaforos[0];
+      myargs[3] = &estado_semaforos[1];
+      myargs[4] = &estado_semaforos[2];
+      myargs[5] = &ubicacion_semaforos[0];
+      myargs[6] = &ubicacion_semaforos[1];
+      myargs[7] = &ubicacion_semaforos[2];
       myargs[8] = &ubicacion_bodega;
       myargs[9] = NULL;
       execvp(myargs[0], myargs);
