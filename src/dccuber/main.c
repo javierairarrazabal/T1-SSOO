@@ -20,12 +20,8 @@ void handle_sigalrm(int sig)
   pid_t repartidor_pid;
   char* estado_semaforos[3];
   int repartidor_id;
-  int ubicacion_semaforos[3];
-  char* distancia_semaforos[3];
-  ubicacion_semaforos[0] = strtol(data_in->lines[0][0], NULL, 10);
-  ubicacion_semaforos[1] = strtol(data_in->lines[0][1], NULL, 10);
-  ubicacion_semaforos[2] = strtol(data_in->lines[0][2], NULL, 10);
-  int ubicacion_bodega = strtol(data_in->lines[0][3], NULL, 10);
+  char* ubicacion_semaforos[3];
+  char* ubicacion_bodega;
 
   for (int i = 1; i < cantidad_restante; i++)
   {
@@ -37,10 +33,10 @@ void handle_sigalrm(int sig)
       sprintf(&estado_semaforos[0], "%d", semaforos[0]);
       sprintf(&estado_semaforos[1], "%d", semaforos[1]);
       sprintf(&estado_semaforos[2], "%d", semaforos[2]);
-      sprintf(&distancia_semaforos[0], "%d", ubicacion_semaforos[0]);
-      sprintf(&distancia_semaforos[1], "%d", ubicacion_semaforos[1]);
-      sprintf(&distancia_semaforos[2], "%d", ubicacion_semaforos[2]);
-      sprintf(&ubicacion_bodega, "%d", ubicacion_bodega);
+      sprintf(&ubicacion_semaforos[0], "%d", strtol(data_in->lines[0][0], NULL, 10));
+      sprintf(&ubicacion_semaforos[1], "%d", strtol(data_in->lines[0][1], NULL, 10));
+      sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
+      sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
       myargs[0] = strdup("./repartidor");
       myargs[1] = &repartidor_id;
       myargs[2] = &estado_semaforos[0];
@@ -99,12 +95,8 @@ int main(int argc, char const *argv[])
   int status_main;
   int status_fabrica;
   char* estado_semaforos[3];
-  int ubicacion_semaforos[3];
-  char* distancia_semaforo[3];
-  ubicacion_semaforos[0] = strtol(data_in->lines[0][0], NULL, 10);
-  ubicacion_semaforos[1] = strtol(data_in->lines[0][1], NULL, 10);
-  ubicacion_semaforos[2] = strtol(data_in->lines[0][2], NULL, 10);
-  int ubicacion_bodega = strtol(data_in->lines[0][3], NULL, 10);
+  char* ubicacion_semaforos[3];
+  char* ubicacion_bodega;
   // Crear fábrica
   fabrica_pid = fork();
 
@@ -121,10 +113,10 @@ int main(int argc, char const *argv[])
       sprintf(&estado_semaforos[0], "%d", semaforos[0]);
       sprintf(&estado_semaforos[1], "%d", semaforos[1]);
       sprintf(&estado_semaforos[2], "%d", semaforos[2]);
-      sprintf(&distancia_semaforo[0], "%d", ubicacion_semaforos[0]);
-      sprintf(&distancia_semaforo[1], "%d", ubicacion_semaforos[1]);
-      sprintf(&distancia_semaforo[2], "%d", ubicacion_semaforos[2]);
-      sprintf(ubicacion_bodega, "%d", ubicacion_bodega);
+      sprintf(&ubicacion_semaforos[0], "%d", strtol(data_in->lines[0][0], NULL, 10));
+      sprintf(&ubicacion_semaforos[1], "%d", strtol(data_in->lines[0][1], NULL, 10));
+      sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
+      sprintf(ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
       myargs[0] = strdup("./repartidor");
       myargs[1] = &repartidores_id[0];
       myargs[2] = &estado_semaforos[0];
@@ -163,7 +155,6 @@ int main(int argc, char const *argv[])
     printf("Liberando memoria...\n");
     input_file_destroy(data_in);
     //free(repartidores_pid);
-    //free(semaforos_pid);
     return 0;
   }
 }
