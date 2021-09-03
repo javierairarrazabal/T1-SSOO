@@ -65,6 +65,7 @@ int main(int argc, char const *argv[])
     else
     {
       printf("LLEGOOOO\n");
+      exit(0);
     }
     if (distancia == ubicacion_semaforos[0] - 1)
     {
