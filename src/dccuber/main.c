@@ -35,6 +35,7 @@ int main(int argc, char const *argv[])
   int cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
   pid_t* repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
   char* pid_parent = malloc(sizeof(char));
+  char* repartidores_id = calloc(cant_repartidores, sizeof(char));
   int status;
   // Crear fábrica
   fabrica_pid = fork();
@@ -50,9 +51,9 @@ int main(int argc, char const *argv[])
       if (!repartidores_pid[j])
       {
         char* myargs[3];
-        char id_repartidor = j+'0';
+        repartidores_id[j] = j+'0';
         myargs[0] = strdup("./repartidor");
-        myargs[1] = &id_repartidor;
+        myargs[1] = repartidores_id[j];
         myargs[2] = NULL;
         execvp(myargs[0], myargs);
       }
