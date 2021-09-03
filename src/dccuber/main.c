@@ -7,22 +7,27 @@
 void handle_sigalarm(int sig)
 {
   printf("alarma");
-//  for (int i = 1; i < 10; i++)
-//   {
-//     repartidores_pid[i] = fork();
-//       if (!repartidores_pid[i])
-//       {
-//         char* myargs[3];
-//         sprintf(&repartidores_id[i], "%d", 0);
-//         myargs[0] = strdup("./repartidor");
-//         myargs[1] = &repartidores_id[0];
-//         myargs[2] = NULL;
-//         execvp(myargs[0], myargs);
-//       } else {
-//         signal(SIGALRM, handle_sigalarm);
-//         alarm(strtol(data_in->lines[1][0], NULL, 10));
-//       }
-//   } 
+  char *filename = "input.txt";
+  InputFile *data_in = read_file(filename);
+  int cantidad_restante = strtol(data_in->lines[1][1], NULL, 10);
+  int tiempo_generacion = strtol(data_in->lines[1][0], NULL, 10);
+  pid_t repartidor_pid;
+
+  for (int i = 1; i < cantidad_restante; i++)
+  {
+    repartidor_pid = fork();
+    if (!repartidor_pid)
+    {
+      char* myargs[3];
+      sprintf(&repartidor_pid, "%d", i);
+      myargs[0] = strdup("./repartidor");
+      myargs[1] = &repartidor_pid;
+      myargs[2] = NULL;
+      execvp(myargs[0], myargs);
+    }
+    sleep(tiempo_generacion);
+  }
+  
 }
 
 int main(int argc, char const *argv[])
@@ -64,38 +69,20 @@ int main(int argc, char const *argv[])
   if (!fabrica_pid) // Solo el fabrica cumple el if
   {
     printf("Hola soy la fabrica mi pid es %i\n", getpid());
-
     // // Crear RePARTIDORES
     repartidores_pid[0] = fork();
-      if (!repartidores_pid[0])
-      {
-        char* myargs[3];
-        sprintf(&repartidores_id[0], "%d", 0);
-        myargs[0] = strdup("./repartidor");
-        myargs[1] = &repartidores_id[0];
-        myargs[2] = NULL;
-        execvp(myargs[0], myargs);
-      } else {
-        signal(SIGALRM, handle_sigalarm);
-        alarm(strtol(data_in->lines[1][0], NULL, 10));
-
-      }
-    
-    // for (int j = 0; j < cant_repartidores; j++)
-    // {
-    //   repartidores_pid[j] = fork();
-    //   if (!repartidores_pid[j])
-    //   {
-    //     char* myargs[3];
-    //     sprintf(&repartidores_id[j], "%d", j);
-    //     myargs[0] = strdup("./repartidor");
-    //     myargs[1] = &repartidores_id[j];
-    //     myargs[2] = NULL;
-    //     execvp(myargs[0], myargs);
-    //   } else {
-
-    //   }
-    // }
+    if (!repartidores_pid[0])
+    {
+      char* myargs[3];
+      sprintf(&repartidores_id[0], "%d", 0);
+      myargs[0] = strdup("./repartidor");
+      myargs[1] = &repartidores_id[0];
+      myargs[2] = NULL;
+      execvp(myargs[0], myargs);
+    } else {
+      signal(SIGALRM, handle_sigalarm);
+      alarm(strtol(data_in->lines[1][0], NULL, 10));
+    }
   } else {
     sprintf(pid_parent, "%d", fabrica_pid);
     for (int i = 0; i < 3; i++)
