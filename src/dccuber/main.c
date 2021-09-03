@@ -51,7 +51,7 @@ int main(int argc, char const *argv[])
       if (!repartidores_pid[j])
       {
         char* myargs[3];
-        repartidores_id[j] = j+'0';
+        sprintf(repartidores_id[j], "%d", j);
         myargs[0] = strdup("./repartidor");
         myargs[1] = &repartidores_id[j];
         myargs[2] = NULL;
