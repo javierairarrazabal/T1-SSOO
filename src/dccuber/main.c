@@ -59,8 +59,8 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
   int number_received = siginfo->si_value.sival_int;
   semaforos[number_received] = !semaforos[number_received];
   printf("Padre: Recibi semaforo id %i en estado %i\n", number_received, semaforos[number_received]);
-  printf("Primer rep %i", primer_repartidor_pid);
-  send_signal_with_int2(primer_repartidor_pid, number_received);
+  printf("Primer rep %i/n", primer_repartidor_pid);
+  send_signal_with_int(primer_repartidor_pid, number_received);
 }
 
 int main(int argc, char const *argv[])
@@ -107,7 +107,6 @@ int main(int argc, char const *argv[])
     repartidores_pid[0] = fork();
     if (!repartidores_pid[0])
     {
-      primer_repartidor_pid = getpid();
       int estado_semaforos[3];
       int ubicacion_semaforos[3];
       int ubicacion_bodega;
@@ -132,6 +131,7 @@ int main(int argc, char const *argv[])
       myargs[9] = NULL;
       execvp(myargs[0], myargs);
     } else {
+      primer_repartidor_pid = repartidores_pid[0];
       signal(SIGALRM, handle_sigalrm);
       alarm(strtol(data_in->lines[1][0], NULL, 10));
       connect_sigaction(SIGUSR1, handle_sigusr1);
