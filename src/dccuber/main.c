@@ -7,13 +7,6 @@
 
 #include "../file_manager/manager.h"
 
-void send_signal_with_int(int pid, int payload)
-{
-  union sigval sig = {};
-  sig.sival_int = payload;
-  sigqueue(pid, SIGUSR1, sig);
-}
-
 void handle_sigalrm(int sig)
 {
   printf("alarma\n");
