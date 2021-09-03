@@ -23,11 +23,14 @@ void handle_sigalrm(int sig)
     repartidor_pid = fork();
     if (!repartidor_pid)
     {
-      char* myargs[3];
+      char* myargs[6];
       sprintf(&repartidor_pid, "%d", i);
       myargs[0] = strdup("./repartidor");
       myargs[1] = &repartidor_pid;
-      myargs[2] = NULL;
+      myargs[2] = &semaforos[0];
+      myargs[3] = &semaforos[1];
+      myargs[4] = &semaforos[2];
+      myargs[5] = NULL;
       execvp(myargs[0], myargs);
     }
     sleep(tiempo_generacion);
@@ -38,7 +41,7 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
 {
   int number_received = siginfo->si_value.sival_int;
   semaforos[number_received] = !semaforos[number_received];
-  printf("Padre: Recibi semaforo id %i en estado%i\n", number_received, semaforos[number_received]);
+  printf("Padre: Recibi semaforo id %i en estado %i\n", number_received, semaforos[number_received]);
 }
 
 int main(int argc, char const *argv[])
