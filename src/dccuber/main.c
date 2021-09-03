@@ -10,6 +10,7 @@
 int semaforos[3] = {1, 1, 1};
 int semaforos_pid[3];
 pid_t* repartidores_pid;
+int cant_repartidores;
 
 void handle_sigalrm(int sig)
 {
@@ -18,7 +19,6 @@ void handle_sigalrm(int sig)
   InputFile *data_in = read_file(filename);
   int cantidad_restante = strtol(data_in->lines[1][1], NULL, 10);
   int tiempo_generacion = strtol(data_in->lines[1][0], NULL, 10);
-  pid_t repartidor_pid;
   int estado_semaforos[3];
   char repartidor_id;
   int ubicacion_semaforos[3];
@@ -26,8 +26,8 @@ void handle_sigalrm(int sig)
 
   for (int i = 1; i < cantidad_restante; i++)
   {
-    repartidor_pid = fork();
-    if (!repartidor_pid)
+    repartidores_pid[i] = fork();
+    if (!repartidores_pid[i])
     {
       char* myargs[10];
       sprintf(&repartidor_id, "%d", i);
@@ -60,7 +60,9 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
   semaforos[number_received] = !semaforos[number_received];
   printf("Padre: Recibi semaforo id %i en estado %i\n", number_received, semaforos[number_received]);
   printf("Primer rep %i/n", repartidores_pid[0]);
-  send_signal_with_int(repartidores_pid[0], number_received);
+  for (int i = 0; i < cant_repartidores; i++) {
+    send_signal_with_int(repartidores_pid[i], number_received);
+  }
 }
 
 int main(int argc, char const *argv[])
@@ -90,7 +92,7 @@ int main(int argc, char const *argv[])
 
   // inicializar variables
   pid_t fabrica_pid;
-  int cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
+  cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
   repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
   char* pid_parent = malloc(sizeof(char));
   char* repartidores_id = calloc(cant_repartidores, sizeof(char));
