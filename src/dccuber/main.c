@@ -15,43 +15,43 @@ int cant_repartidores;
 void handle_sigalrm(int sig)
 {
   printf("alarma\n");
-  // char *filename = "input.txt";
-  // InputFile *data_in = read_file(filename);
-  // int cantidad_restante = strtol(data_in->lines[1][1], NULL, 10);
-  // int tiempo_generacion = strtol(data_in->lines[1][0], NULL, 10);
-  // int estado_semaforos[3];
-  // char repartidor_id;
-  // int ubicacion_semaforos[3];
-  // int ubicacion_bodega;
+  char *filename = "input.txt";
+  InputFile *data_in = read_file(filename);
+  int cantidad_restante = strtol(data_in->lines[1][1], NULL, 10);
+  int tiempo_generacion = strtol(data_in->lines[1][0], NULL, 10);
+  int estado_semaforos[3];
+  char repartidor_id;
+  int ubicacion_semaforos[3];
+  int ubicacion_bodega;
 
-  // for (int i = 1; i < cantidad_restante; i++)
-  // {
-  //   repartidores_pid[i] = fork();
-  //   if (!repartidores_pid[i])
-  //   {
-  //     char *myargs[10];
-  //     sprintf(&repartidor_id, "%d", i);
-  //     sprintf(&estado_semaforos[0], "%d", semaforos[0]);
-  //     sprintf(&estado_semaforos[1], "%d", semaforos[1]);
-  //     sprintf(&estado_semaforos[2], "%d", semaforos[2]);
-  //     sprintf(&ubicacion_semaforos[0], "%d", strtol(data_in->lines[0][0], NULL, 10));
-  //     sprintf(&ubicacion_semaforos[1], "%d", strtol(data_in->lines[0][1], NULL, 10));
-  //     sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
-  //     sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
-  //     myargs[0] = strdup("./repartidor");
-  //     myargs[1] = &repartidor_id;
-  //     myargs[2] = &estado_semaforos[0];
-  //     myargs[3] = &estado_semaforos[1];
-  //     myargs[4] = &estado_semaforos[2];
-  //     myargs[5] = &ubicacion_semaforos[0];
-  //     myargs[6] = &ubicacion_semaforos[1];
-  //     myargs[7] = &ubicacion_semaforos[2];
-  //     myargs[8] = &ubicacion_bodega;
-  //     myargs[9] = NULL;
-  //     execvp(myargs[0], myargs);
-  //   }
-  //   sleep(tiempo_generacion);
-  // }
+  for (int i = 1; i < cantidad_restante; i++)
+  {
+    repartidores_pid[i] = fork();
+    if (!repartidores_pid[i])
+    {
+      char *myargs[10];
+      sprintf(&repartidor_id, "%d", i);
+      sprintf(&estado_semaforos[0], "%d", semaforos[0]);
+      sprintf(&estado_semaforos[1], "%d", semaforos[1]);
+      sprintf(&estado_semaforos[2], "%d", semaforos[2]);
+      sprintf(&ubicacion_semaforos[0], "%d", strtol(data_in->lines[0][0], NULL, 10));
+      sprintf(&ubicacion_semaforos[1], "%d", strtol(data_in->lines[0][1], NULL, 10));
+      sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
+      sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
+      myargs[0] = strdup("./repartidor");
+      myargs[1] = &repartidor_id;
+      myargs[2] = &estado_semaforos[0];
+      myargs[3] = &estado_semaforos[1];
+      myargs[4] = &estado_semaforos[2];
+      myargs[5] = &ubicacion_semaforos[0];
+      myargs[6] = &ubicacion_semaforos[1];
+      myargs[7] = &ubicacion_semaforos[2];
+      myargs[8] = &ubicacion_bodega;
+      myargs[9] = NULL;
+      execvp(myargs[0], myargs);
+    }
+    sleep(tiempo_generacion);
+  }
 }
 
 void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
