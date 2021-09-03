@@ -105,7 +105,7 @@ int main(int argc, char const *argv[])
         execvp(myargs[0], myargs);
       }
     }
-    //waitpid(fabrica_pid, &status, 0);
+    waitpid(fabrica_pid, &status, 0);
     printf("Liberando memoria...\n");
     input_file_destroy(data_in);
     //free(repartidores_pid);
