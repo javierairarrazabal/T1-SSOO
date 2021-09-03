@@ -87,6 +87,7 @@ int main(int argc, char const *argv[])
       printf("ENTREEE\n");
       signal(SIGALRM, handle_sigalrm);
       alarm(2);
+      sleep(20);
     }
   } else {
     sprintf(pid_parent, "%d", fabrica_pid);
