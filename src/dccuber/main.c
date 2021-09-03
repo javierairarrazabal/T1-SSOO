@@ -59,7 +59,6 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
   int number_received = siginfo->si_value.sival_int;
   semaforos[number_received] = !semaforos[number_received];
   printf("Padre: Recibi semaforo id %i en estado %i\n", number_received, semaforos[number_received]);
-  printf("Primer rep %i/n", repartidores_pid[0]);
   for (int i = 0; i < cant_repartidores; i++) {
     send_signal_with_int(repartidores_pid[i], number_received);
   }

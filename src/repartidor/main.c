@@ -35,7 +35,60 @@ int main(int argc, char const *argv[])
   printf("I'm the REPARTIDOR process and my PID is: %i, my id is %i\n", getpid(), id);
   while (true)
   {
-    sleep(200);
-
+    sleep(1);
+    if (distancia < ubicacion_semaforos[0])
+    {
+      cant_turnos[0]++;
+      cant_turnos[1]++;
+      cant_turnos[2]++;
+      cant_turnos[3]++;
+    }
+    else if (ubicacion_semaforos[0] <= distancia < ubicacion_semaforos[1])
+    {
+      cant_turnos[1]++;
+      cant_turnos[2]++;
+      cant_turnos[3]++;
+    }
+    else if (ubicacion_semaforos[1] <= distancia < ubicacion_semaforos[2])
+    {
+      cant_turnos[2]++;
+      cant_turnos[3]++;
+    }
+    else if (ubicacion_semaforos[2] <= distancia < ubicacion_semaforos[3])
+    {
+      cant_turnos[3]++;
+    }
+    else
+    {
+      printf("LLEGOOOO\n");
+    }
+    if (distancia == ubicacion_semaforos[0] - 1)
+    {
+      if (estado_semaforos[0])
+      {
+        distancia++;
+        printf("Semaforo 1 verde ubicado en %i\n", distancia);
+      }
+    }
+    else if (distancia == ubicacion_semaforos[1] - 1)
+    {
+      if (estado_semaforos[1])
+      {
+        distancia++;
+        printf("Semaforo 1 verde ubicado en %i\n", distancia);
+      }
+    }
+    else if (distancia == ubicacion_semaforos[2] - 1)
+    {
+      if (estado_semaforos[2])
+      {
+        distancia++;
+        printf("Semaforo 1 verde ubicado en %i\n", distancia);
+      }
+    }
+    else
+    {
+      distancia++;
+    }
   };
 }
