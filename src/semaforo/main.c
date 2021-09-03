@@ -8,11 +8,13 @@ int main(int argc, char const *argv[])
   int id = strtol(argv[1], NULL, 10);
   int delay = strtol(argv[2], NULL, 10);
   bool prendido = true;
+  int cambios = 0;
   printf("I'm the SEMAFORO process and my PID is: %i\n", getpid());
   while (true)
   {
     sleep(delay);
     prendido = !prendido;
+    cambios ++;
     printf("SEMAFORO %i prendido: %d\n", id, prendido);
   };
   

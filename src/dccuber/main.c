@@ -7,6 +7,12 @@
 
 #include "../file_manager/manager.h"
 
+void send_signal_with_int(int pid, int payload)
+{
+  union sigval sig = {};
+  sig.sival_int = payload;
+  sigqueue(pid, SIGUSR1, sig);
+}
 
 void handle_sigalrm(int sig)
 {
@@ -89,6 +95,7 @@ int main(int argc, char const *argv[])
       printf("ENTREEE\n");
       signal(SIGALRM, handle_sigalrm);
       alarm(strtol(data_in->lines[1][0], NULL, 10));
+      send_signal_with_int(repartidores_pid[0], 2);
       wait(NULL);
     }
   } else {
@@ -109,6 +116,7 @@ int main(int argc, char const *argv[])
       }
     }
     waitpid(fabrica_pid, &status_main, 0);
+
     printf("Liberando memoria...\n");
     input_file_destroy(data_in);
     //free(repartidores_pid);
