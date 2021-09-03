@@ -42,21 +42,25 @@ int main(int argc, char const *argv[])
       cant_turnos[1]++;
       cant_turnos[2]++;
       cant_turnos[3]++;
+      printf("entro al primer caso");
     }
     else if (ubicacion_semaforos[0] <= distancia < ubicacion_semaforos[1])
     {
       cant_turnos[1]++;
       cant_turnos[2]++;
       cant_turnos[3]++;
+      printf("entro al segundo caso");
     }
     else if (ubicacion_semaforos[1] <= distancia < ubicacion_semaforos[2])
     {
       cant_turnos[2]++;
       cant_turnos[3]++;
+      printf("entro al tercer caso");
     }
     else if (ubicacion_semaforos[2] <= distancia < ubicacion_semaforos[3])
     {
       cant_turnos[3]++;
+      printf("entro al cuarto caso");
     }
     else
     {
@@ -67,11 +71,11 @@ int main(int argc, char const *argv[])
       if (estado_semaforos[0])
       {
         distancia++;
-        printf("Repartidor %i: Semaforo 1 verde ubicado en %i\n", id, distancia);
+        // printf("Repartidor %i: Semaforo 1 verde ubicado en %i\n", id, distancia);
       }
       else
       {
-        printf("Repartidor %i: Semaforo 1 rojo ubicado en %i\n", id, distancia);
+        // printf("Repartidor %i: Semaforo 1 rojo ubicado en %i\n", id, distancia);
       }
     }
     else if (distancia == ubicacion_semaforos[1] - 1)
@@ -79,11 +83,11 @@ int main(int argc, char const *argv[])
       if (estado_semaforos[1])
       {
         distancia++;
-        printf("Repartidor %i: Semaforo 2 verde ubicado en %i\n", id, distancia);
+        // printf("Repartidor %i: Semaforo 2 verde ubicado en %i\n", id, distancia);
       }
       else
       {
-        printf("Repartidor %i: Semaforo 2 rojo ubicado en %i\n", id, distancia);
+        // printf("Repartidor %i: Semaforo 2 rojo ubicado en %i\n", id, distancia);
       }
     }
     else if (distancia == ubicacion_semaforos[2] - 1)
@@ -91,11 +95,11 @@ int main(int argc, char const *argv[])
       if (estado_semaforos[2])
       {
         distancia++;
-        printf("Repartidor %i: Semaforo 3 verde ubicado en %i\n", id, distancia);
+        // printf("Repartidor %i: Semaforo 3 verde ubicado en %i\n", id, distancia);
       }
       else
       {
-        printf("Repartidor %i: Semaforo 3 rojo ubicado en %i\n", id, distancia);
+        // printf("Repartidor %i: Semaforo 3 rojo ubicado en %i\n", id, distancia);
       }
     }
     else
