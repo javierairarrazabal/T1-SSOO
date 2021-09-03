@@ -71,8 +71,7 @@ int main(int argc, char const *argv[])
         printf("Llegó el último\n");
         kill(parent_pid, SIGUSR2);
       }
-      while (true);
-      
+      sleep(500);
     }
     if (distancia == ubicacion_semaforos[0] - 1)
     {

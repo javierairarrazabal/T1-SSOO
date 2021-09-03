@@ -154,7 +154,7 @@ int main(int argc, char const *argv[])
       signal(SIGUSR2, handle_sigusr2);
       alarm(strtol(data_in->lines[1][0], NULL, 10));
       connect_sigaction(SIGUSR1, handle_sigusr1);
-      waitpid(repartidores_pid[0], &status_fabrica, 0);
+      sleep(500);
     }
   }
   else
