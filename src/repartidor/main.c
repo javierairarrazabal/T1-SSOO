@@ -70,7 +70,10 @@ int main(int argc, char const *argv[])
         distancia++;
         printf("Repartidor %i: Semaforo 1 verde ubicado en %i\n", id, distancia);
       }
-      printf("Repartidor %i: Semaforo 1 rojo ubicado en %i\n", id, distancia);
+      else
+      {
+        printf("Repartidor %i: Semaforo 1 rojo ubicado en %i\n", id, distancia);
+      }
     }
     else if (distancia == ubicacion_semaforos[1] - 1)
     {
@@ -79,7 +82,10 @@ int main(int argc, char const *argv[])
         distancia++;
         printf("Repartidor %i: Semaforo 2 verde ubicado en %i\n", id, distancia);
       }
-      printf("Repartidor %i: Semaforo 2 rojo ubicado en %i\n", id, distancia);
+      else
+      {
+        printf("Repartidor %i: Semaforo 2 rojo ubicado en %i\n", id, distancia);
+      }
     }
     else if (distancia == ubicacion_semaforos[2] - 1)
     {
@@ -88,7 +94,10 @@ int main(int argc, char const *argv[])
         distancia++;
         printf("Repartidor %i: Semaforo 3 verde ubicado en %i\n", id, distancia);
       }
-      printf("Repartidor %i: Semaforo 3 rojo ubicado en %i\n", id, distancia);
+      else
+      {
+        printf("Repartidor %i: Semaforo 3 rojo ubicado en %i\n", id, distancia);
+      }
     }
     else
     {
