@@ -10,6 +10,7 @@
 
 int main(int argc, char const *argv[])
 {
+  connect_sigaction(SIGUSR1, handle_sigusr1);
   int id = strtol(argv[1], NULL, 10);
   int turnos[4];
   turnos[0] = 0;
