@@ -24,7 +24,7 @@ void handle_sigalrm(int sig)
   int ubicacion_semaforos[3];
   int ubicacion_bodega;
   int ultimo;
-  int pid_parent;
+  int pid_parent = getpid();
 
   for (int i = 1; i < cantidad_restante; i++)
   {
@@ -39,7 +39,7 @@ void handle_sigalrm(int sig)
       sprintf(&ubicacion_semaforos[1], "%d", strtol(data_in->lines[0][1], NULL, 10));
       sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
       sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
-      sprintf(&pid_parent, "%d", getpid());
+      sprintf(&pid_parent, "%d", pid_parent);
       if (i == cantidad_restante-1)
       {
         sprintf(&ultimo, "%d", 1);
@@ -116,6 +116,7 @@ int main(int argc, char const *argv[])
   if (!fabrica_pid) // Solo el fabrica cumple el if
   {
     printf("Hola soy la fabrica mi pid es %i\n", getpid());
+    int pid_parent2 = getpid();
     // // Crear RePARTIDORES
     repartidores_pid[0] = fork();
     if (!repartidores_pid[0])
@@ -124,7 +125,6 @@ int main(int argc, char const *argv[])
       int ubicacion_semaforos[3];
       int ubicacion_bodega;
       int ultimo;
-      int pid_parent2;
       char *myargs[11];
       sprintf(&estado_semaforos[0], "%d", semaforos[0]);
       sprintf(&estado_semaforos[1], "%d", semaforos[1]);
