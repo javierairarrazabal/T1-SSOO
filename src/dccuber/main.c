@@ -10,7 +10,7 @@
 
 void handle_sigalrm(int sig)
 {
-  printf("alarma");
+  printf("alarma\n");
   // char *filename = "input.txt";
   // InputFile *data_in = read_file(filename);
   // int cantidad_restante = strtol(data_in->lines[1][1], NULL, 10);
@@ -86,7 +86,7 @@ int main(int argc, char const *argv[])
     } else {
       printf("ENTREEE\n");
       signal(SIGALRM, handle_sigalrm);
-      alarm(1);
+      alarm(2);
     }
   } else {
     sprintf(pid_parent, "%d", fabrica_pid);
