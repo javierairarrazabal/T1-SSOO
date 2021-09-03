@@ -9,6 +9,7 @@
 
 int semaforos[3] = {1, 1, 1};
 int semaforos_pid[3];
+int primer_repartidor_pid;
 
 void handle_sigalrm(int sig)
 {
@@ -58,7 +59,7 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
   int number_received = siginfo->si_value.sival_int;
   semaforos[number_received] = !semaforos[number_received];
   printf("Padre: Recibi semaforo id %i en estado %i\n", number_received, semaforos[number_received]);
-  send_signal_with_int(semaforos_pid[number_received], number_received);
+  send_signal_with_int(primer_repartidor_pid, number_received);
 }
 
 int main(int argc, char const *argv[])
@@ -105,6 +106,7 @@ int main(int argc, char const *argv[])
     repartidores_pid[0] = fork();
     if (!repartidores_pid[0])
     {
+      primer_repartidor_pid = mipid();
       int estado_semaforos[3];
       int ubicacion_semaforos[3];
       int ubicacion_bodega;
