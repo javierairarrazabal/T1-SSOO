@@ -33,34 +33,34 @@ int main(int argc, char const *argv[])
   ubicacion_semaforos[2] = strtol(argv[7], NULL, 10);
   ubicacion_bodega = strtol(argv[8], NULL, 10);
   // printf("I'm the REPARTIDOR process and my PID is: %i, my id is %i\n", getpid(), id);
+  sleep(1);
   while (true)
   {
-    sleep(1);
     if (distancia < ubicacion_semaforos[0])
     {
       cant_turnos[0]++;
       cant_turnos[1]++;
       cant_turnos[2]++;
       cant_turnos[3]++;
-      printf("entro al primer caso");
+      printf("entro al primer caso\n");
     }
     else if (ubicacion_semaforos[0] <= distancia < ubicacion_semaforos[1])
     {
       cant_turnos[1]++;
       cant_turnos[2]++;
       cant_turnos[3]++;
-      printf("entro al segundo caso");
+      printf("entro al segundo caso\n");
     }
     else if (ubicacion_semaforos[1] <= distancia < ubicacion_semaforos[2])
     {
       cant_turnos[2]++;
       cant_turnos[3]++;
-      printf("entro al tercer caso");
+      printf("entro al tercer caso\n");
     }
     else if (ubicacion_semaforos[2] <= distancia < ubicacion_semaforos[3])
     {
       cant_turnos[3]++;
-      printf("entro al cuarto caso");
+      printf("entro al cuarto caso\n");
     }
     else
     {
@@ -106,5 +106,6 @@ int main(int argc, char const *argv[])
     {
       distancia++;
     }
+    sleep(1);
   };
 }
