@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <signal.h>
+#include <sys/wait.h>
 
 #include "../file_manager/manager.h"
 
