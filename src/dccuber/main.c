@@ -106,7 +106,7 @@ int main(int argc, char const *argv[])
     repartidores_pid[0] = fork();
     if (!repartidores_pid[0])
     {
-      primer_repartidor_pid = mipid();
+      primer_repartidor_pid = getpid();
       int estado_semaforos[3];
       int ubicacion_semaforos[3];
       int ubicacion_bodega;
