@@ -4,6 +4,27 @@
 
 #include "../file_manager/manager.h"
 
+void handle_sigalarm(int sig)
+{
+  printf("alarma");
+//  for (int i = 1; i < 10; i++)
+//   {
+//     repartidores_pid[i] = fork();
+//       if (!repartidores_pid[i])
+//       {
+//         char* myargs[3];
+//         sprintf(&repartidores_id[i], "%d", 0);
+//         myargs[0] = strdup("./repartidor");
+//         myargs[1] = &repartidores_id[0];
+//         myargs[2] = NULL;
+//         execvp(myargs[0], myargs);
+//       } else {
+//         signal(SIGALRM, handle_sigalarm);
+//         alarm(strtol(data_in->lines[1][0], NULL, 10));
+//       }
+//   } 
+}
+
 int main(int argc, char const *argv[])
 {
   printf("I'm the DCCUBER process and my PID is: %i\n", getpid());
@@ -45,19 +66,36 @@ int main(int argc, char const *argv[])
     printf("Hola soy la fabrica mi pid es %i\n", getpid());
 
     // // Crear RePARTIDORES
-    for (int j = 0; j < cant_repartidores; j++)
-    {
-      repartidores_pid[j] = fork();
-      if (!repartidores_pid[j])
+    repartidores_pid[0] = fork();
+      if (!repartidores_pid[0])
       {
         char* myargs[3];
-        sprintf(&repartidores_id[j], "%d", j);
+        sprintf(&repartidores_id[0], "%d", 0);
         myargs[0] = strdup("./repartidor");
-        myargs[1] = &repartidores_id[j];
+        myargs[1] = &repartidores_id[0];
         myargs[2] = NULL;
         execvp(myargs[0], myargs);
+      } else {
+        signal(SIGALRM, handle_sigalarm);
+        alarm(strtol(data_in->lines[1][0], NULL, 10));
+
       }
-    }
+    
+    // for (int j = 0; j < cant_repartidores; j++)
+    // {
+    //   repartidores_pid[j] = fork();
+    //   if (!repartidores_pid[j])
+    //   {
+    //     char* myargs[3];
+    //     sprintf(&repartidores_id[j], "%d", j);
+    //     myargs[0] = strdup("./repartidor");
+    //     myargs[1] = &repartidores_id[j];
+    //     myargs[2] = NULL;
+    //     execvp(myargs[0], myargs);
+    //   } else {
+
+    //   }
+    // }
   } else {
     sprintf(pid_parent, "%d", fabrica_pid);
     for (int i = 0; i < 3; i++)
