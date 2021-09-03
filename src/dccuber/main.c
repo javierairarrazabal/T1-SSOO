@@ -76,7 +76,7 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
 
 void handle_sigusr2(int sig)
 {
-  printf("Llegó el último\n");
+  printf("Llegó señal el último\n");
 }
 
 int main(int argc, char const *argv[])

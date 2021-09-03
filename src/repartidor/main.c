@@ -33,7 +33,6 @@ int main(int argc, char const *argv[])
   ubicacion_bodega = strtol(argv[7], NULL, 10);
   int ultimo = strtol(argv[8], NULL, 10);
   int parent_pid = strtol(argv[9], NULL, 10);
-  printf("FABRICA PID %i\n", parent_pid);
   printf("I'm the REPARTIDOR process and my PID is: %i\n", getpid());
   sleep(1);
   while (true)
@@ -69,6 +68,7 @@ int main(int argc, char const *argv[])
       printf("%i llego a la bodega\n", getpid());
       if (ultimo)
       {
+        printf("Llegó el último\n");
         kill(parent_pid, SIGUSR2);
       }
       while (true);
