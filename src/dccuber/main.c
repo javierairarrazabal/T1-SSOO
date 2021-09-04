@@ -89,10 +89,12 @@ void handle_sigusr2(int sig)
 
 void handle_sigabrt(int sig)
 {
+  int status;
   printf("ABRT A FABRICA\n");
   for (int i = 0; i < cant_repartidores; i++)
   {
     kill(repartidores_pid[0], SIGABRT);
+    waitpid(repartidores_pid[i], &status, 0);
   }
 }
 
@@ -128,7 +130,6 @@ int main(int argc, char const *argv[])
   char *pid_parent = malloc(sizeof(char));
   int status_fabrica;
   int status;
-  pid_t pid = 0;
   // Crear fábrica
   fabrica_pid = fork();
 
