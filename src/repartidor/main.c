@@ -70,6 +70,7 @@ int main(int argc, char const *argv[])
       if (ultimo)
       {
         printf("Llegó el último\n");
+        printf("parent %i\n", parent_pid);
         kill(parent_pid, SIGUSR2);
       }
       while (true);
