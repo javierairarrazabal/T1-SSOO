@@ -16,8 +16,10 @@ pid_t principal_pid;
 
 void handle_sigint(int sig)
 {
+  int status_main;
   printf("sigint a último\n");
   kill(fabrica_pid, SIGABRT);
+  waitpid(fabrica_pid, &status_main, 0);
 }
 
 void handle_sigalrm(int sig)
@@ -90,6 +92,12 @@ void handle_sigusr2(int sig)
 void handle_sigabrt(int sig)
 {
   printf("ABRT A FABRICA\n");
+  int status_fabrica;
+  for (int i = 0; i < cant_repartidores; i++)
+  {
+    kill(repartidores_pid[i], SIGABRT);
+    waitpid(repartidores_pid[i], &status_fabrica, 0);
+  }
 }
 
 int main(int argc, char const *argv[])
@@ -122,7 +130,6 @@ int main(int argc, char const *argv[])
   cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
   repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
   char *pid_parent = malloc(sizeof(char));
-  int status_main;
   int status_fabrica;
   // Crear fábrica
   fabrica_pid = fork();
@@ -170,7 +177,6 @@ int main(int argc, char const *argv[])
       alarm(strtol(data_in->lines[1][0], NULL, 10));
       connect_sigaction(SIGUSR1, handle_sigusr1);
       printf("pid rep %i\n", repartidores_pid[0]);
-      waitpid(repartidores_pid[0], &status_fabrica, 0);
     }
   }
   else
@@ -192,7 +198,6 @@ int main(int argc, char const *argv[])
       }
     }
     signal(SIGINT, handle_sigint);
-    waitpid(fabrica_pid, &status_main, 0);
     printf("Liberando memoria...\n");
     input_file_destroy(data_in);
     //free(repartidores_pid);
