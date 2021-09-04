@@ -12,6 +12,12 @@ int semaforos_pid[3];
 pid_t *repartidores_pid;
 int cant_repartidores;
 pid_t fabrica_pid;
+pid_t principal_pid;
+
+void handle_sigint(int sig)
+{
+  printf("sigint a último\n");
+}
 
 void handle_sigalrm(int sig)
 {
@@ -71,6 +77,7 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
   for (int i = 0; i < cant_repartidores; i++)
   {
     send_signal_with_int(repartidores_pid[i], number_received);
+    kill(principal_pid, SIGINT);
   }
 }
 
@@ -104,6 +111,7 @@ int main(int argc, char const *argv[])
   }
   printf("\n");
 
+  principal_pid = getpid();
   // inicializar variables
   cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
   repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
