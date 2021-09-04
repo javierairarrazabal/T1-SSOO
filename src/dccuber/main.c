@@ -17,6 +17,7 @@ pid_t principal_pid;
 void handle_sigint(int sig)
 {
   printf("sigint a último\n");
+  kill(fabrica_pid, SIGABRT);
 }
 
 void handle_sigalrm(int sig)
@@ -84,6 +85,11 @@ void handle_sigusr2(int sig)
 {
   printf("Llegó señal del último\n");
   kill(principal_pid, SIGINT);
+}
+
+void handle_sigabrt(int sig)
+{
+  printf("ABRT A FABRICA\n");
 }
 
 int main(int argc, char const *argv[])
@@ -160,6 +166,7 @@ int main(int argc, char const *argv[])
     {
       signal(SIGALRM, handle_sigalrm);
       signal(SIGUSR2, handle_sigusr2);
+      signal(SIGABRT, handle_sigabrt);
       alarm(strtol(data_in->lines[1][0], NULL, 10));
       connect_sigaction(SIGUSR1, handle_sigusr1);
       printf("pid rep %i\n", repartidores_pid[0]);
