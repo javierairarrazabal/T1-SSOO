@@ -117,7 +117,6 @@ int main(int argc, char const *argv[])
   {
     printf("Hola soy la fabrica mi pid es %i\n", getpid());
     int pid_parent2 = getpid();
-    printf("fab %i\n", pid_parent2);
     // // Crear RePARTIDORES
     repartidores_pid[0] = fork();
     if (!repartidores_pid[0])
@@ -135,7 +134,7 @@ int main(int argc, char const *argv[])
       sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
       sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
       sprintf(&ultimo, "%d", 1);
-      sprintf(&pid_parent2, "%d", getpid());
+      sprintf(&pid_parent2, "%d", pid_parent2);
       myargs[0] = strdup("./repartidor");
       myargs[1] = &estado_semaforos[0];
       myargs[2] = &estado_semaforos[1];
