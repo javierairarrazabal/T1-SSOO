@@ -14,16 +14,23 @@ int cant_turnos[4];
 int distancia = 0;
 int ubicacion_bodega;
 
-void handle_sigusr2(int sig, siginfo_t *siginfo, void *context)
+void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
 {
   int number_received = siginfo->si_value.sival_int;
   estado_semaforos[number_received] = !estado_semaforos[number_received];
   // printf("Repartidor: de pid %d: Recibi semaforo id %i en estado %i\n", getpid(), number_received, estado_semaforos[number_received]);
 }
 
+void handle_sigabrt(int sig)
+{
+  printf("ESCRIBIR ARCHIVO Y SALIR\n");
+  exit(0);
+}
+
 int main(int argc, char const *argv[])
 {
-  connect_sigaction(SIGUSR1, handle_sigusr2);
+  connect_sigaction(SIGUSR1, handle_sigusr1);
+  connect_sigaction(SIGABRT, handle_sigabrt);
   estado_semaforos[0] = strtol(argv[1], NULL, 10);
   estado_semaforos[1] = strtol(argv[2], NULL, 10);
   estado_semaforos[2] = strtol(argv[3], NULL, 10);
