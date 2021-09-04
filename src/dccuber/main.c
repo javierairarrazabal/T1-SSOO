@@ -83,7 +83,7 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
 void handle_sigusr2(int sig)
 {
   printf("Llegó señal del último\n");
-  kill(principal_pid, SIGINT);
+  //kill(principal_pid, SIGINT);
 }
 
 int main(int argc, char const *argv[])
@@ -183,7 +183,7 @@ int main(int argc, char const *argv[])
         execvp(myargs[0], myargs);
       }
     }
-    signal(SIGINT,handle_sigint);
+    signal(SIGINT, handle_sigint);
     waitpid(fabrica_pid, &status_main, 0);
     printf("Liberando memoria...\n");
     input_file_destroy(data_in);
