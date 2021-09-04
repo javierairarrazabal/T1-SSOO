@@ -174,7 +174,7 @@ int main(int argc, char const *argv[])
       alarm(strtol(data_in->lines[1][0], NULL, 10));
       connect_sigaction(SIGUSR1, handle_sigusr1);
       printf("pid rep %i\n", repartidores_pid[0]);
-      waitpid(repartidores_pid[0], &status_fabrica, 0);
+      while(true);
     }
   }
   else
@@ -195,7 +195,9 @@ int main(int argc, char const *argv[])
         execvp(myargs[0], myargs);
       }
     }
+    int status_main;
     signal(SIGINT, handle_sigint);
+    waitpid(fabrica_pid, &status_main, 0);
     printf("Liberando memoria...\n");
     input_file_destroy(data_in);
     //free(repartidores_pid);
