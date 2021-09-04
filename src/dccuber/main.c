@@ -223,7 +223,9 @@ int main(int argc, char const *argv[])
     waitpid(semaforos_pid[2], &status, 0);
     printf("Liberando memoria...\n");
     input_file_destroy(data_in);
-    //free(repartidores_pid);
+
+    free(repartidores_pid);
+    free(pid_parent);
     return 0;
   }
 }
