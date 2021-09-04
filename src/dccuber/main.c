@@ -184,8 +184,10 @@ int main(int argc, char const *argv[])
       alarm(strtol(data_in->lines[1][0], NULL, 10));
       connect_sigaction(SIGUSR1, handle_sigusr1);
       while(!repartidores_pid[cant_repartidores-1]);
-      printf(repartidores_pid[cant_repartidores - 1]);
+      printf("se creo el ultimo\n");
+      printf("%i pid del ultimo", repartidores_pid[cant_repartidores-1]);
       waitpid(repartidores_pid[cant_repartidores-1], &status_fabrica, 0);
+      printf("termino el ultimo\n");
       while(true);
       exit(0);
     }
