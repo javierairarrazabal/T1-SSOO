@@ -83,7 +83,7 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
 void handle_sigusr2(int sig)
 {
   printf("Llegó señal del último\n");
-  //kill(principal_pid, SIGINT);
+  kill(principal_pid, SIGINT);
 }
 
 int main(int argc, char const *argv[])
