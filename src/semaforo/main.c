@@ -6,14 +6,15 @@
 #include <sys/wait.h>
 
 int cambios = 0;
+int id;
 
 void handle_sigabrt(int sig)
 {
   printf("Semaforo %i ESCRIBIR ARCHIVO Y SALIR\n", getpid());
-  // FILE *output = fopen("semaforo.txt", "w");
-  // fprintf(output, "%i", cambios);
-  // fclose(output);
-  // printf("SEMAFORO YA ESCRIBIO\n");
+  FILE *output = fopen("semaforo.txt", "w");
+  fprintf(output, "%i", cambios);
+  fclose(output);
+  printf("SEMAFORO YA ESCRIBIO\n");
   exit(0);
 }
 
@@ -21,7 +22,7 @@ int main(int argc, char const *argv[])
 {
   connect_sigaction(SIGABRT, handle_sigabrt);
   int parent_pid = strtol(argv[3], NULL, 10);
-  int id = strtol(argv[1], NULL, 10);
+  id = strtol(argv[1], NULL, 10);
   int delay = strtol(argv[2], NULL, 10);
   bool prendido = true;
   printf("I'm the SEMAFORO process and my PID is: %i\n", getpid());
