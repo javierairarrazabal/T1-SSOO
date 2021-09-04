@@ -5,8 +5,15 @@
 #include <stdbool.h>
 #include <sys/wait.h>
 
+void handle_sigabrt(int sig)
+{
+  printf("Semaforo %i ESCRIBIR ARCHIVO Y SALIR\n", getpid());
+  exit(0);
+}
+
 int main(int argc, char const *argv[])
 {
+  connect_sigaction(SIGABRT, handle_sigabrt);
   int parent_pid = strtol(argv[3], NULL, 10);
   int id = strtol(argv[1], NULL, 10);
   int delay = strtol(argv[2], NULL, 10);

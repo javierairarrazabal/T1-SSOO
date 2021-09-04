@@ -23,7 +23,7 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
 
 void handle_sigabrt(int sig)
 {
-  printf("ESCRIBIR ARCHIVO Y SALIR\n");
+  printf("REPARTIDOR %i ESCRIBIR ARCHIVO Y SALIR\n", getpid());
   exit(0);
 }
 
