@@ -32,19 +32,18 @@ void handle_sigalrm(int sig)
   int ubicacion_bodega;
   int ultimo;
   int pid_parent = getpid();
+  int id_repartidor;
 
   for (int i = 1; i < cant_repartidores; i++)
   {
     printf("ID: %i\n", i);
-    // printf("cantidad menos 1: %i\n", cant_repartidores-1);
-    // printf("comparación: %i\n", i == cant_repartidores-1);
     contador++;
     repartidores_pid[i] = fork();
     if (!repartidores_pid[i])
     {
       printf("contador: %i\n", contador);
       printf("ID dentro: %i\n", i);
-      char *myargs[11];
+      char *myargs[12];
       sprintf(&estado_semaforos[0], "%d", semaforos[0]);
       sprintf(&estado_semaforos[1], "%d", semaforos[1]);
       sprintf(&estado_semaforos[2], "%d", semaforos[2]);
@@ -53,6 +52,7 @@ void handle_sigalrm(int sig)
       sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
       sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
       sprintf(&pid_parent, "%d", pid_parent);
+      sprintf(&id_repartidor, "%d", i);
       if (contador < cant_repartidores-1)
       {
         sprintf(&ultimo, "%d", 0);
@@ -71,7 +71,8 @@ void handle_sigalrm(int sig)
       myargs[7] = &ubicacion_bodega;
       myargs[8] = &ultimo;
       myargs[9] = &pid_parent;
-      myargs[10] = NULL;
+      myargs[10] = &id_repartidor;
+      myargs[11] = NULL;
       execvp(myargs[0], myargs);
     }
     sleep(tiempo_generacion);
@@ -153,7 +154,8 @@ int main(int argc, char const *argv[])
       int ubicacion_semaforos[3];
       int ubicacion_bodega;
       int ultimo;
-      char *myargs[11];
+      int id_repartidor;
+      char *myargs[12];
       sprintf(&estado_semaforos[0], "%d", semaforos[0]);
       sprintf(&estado_semaforos[1], "%d", semaforos[1]);
       sprintf(&estado_semaforos[2], "%d", semaforos[2]);
@@ -163,6 +165,7 @@ int main(int argc, char const *argv[])
       sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
       sprintf(&ultimo, "%d", 0);
       sprintf(&pid_parent2, "%d", pid_parent2);
+      sprintf(&id_repartidor, "%d", 0);
       myargs[0] = strdup("./repartidor");
       myargs[1] = &estado_semaforos[0];
       myargs[2] = &estado_semaforos[1];
@@ -173,7 +176,8 @@ int main(int argc, char const *argv[])
       myargs[7] = &ubicacion_bodega;
       myargs[8] = &ultimo;
       myargs[9] = &pid_parent2;
-      myargs[10] = NULL;
+      myargs[10] = &id_repartidor;
+      myargs[11] = NULL;
       execvp(myargs[0], myargs);
     }
     else
@@ -184,12 +188,9 @@ int main(int argc, char const *argv[])
       alarm(strtol(data_in->lines[1][0], NULL, 10));
       connect_sigaction(SIGUSR1, handle_sigusr1);
       while(!repartidores_pid[cant_repartidores-1]);
-      printf("se creo el ultimo\n");
-      printf("%i pid del ultimo", repartidores_pid[cant_repartidores-1]);
       for (int i = 0; i < cant_repartidores; i++) {
         waitpid(repartidores_pid[i], &status_fabrica, 0);
       }
-      printf("termino el ultimo\n");
       exit(0);
     }
   }

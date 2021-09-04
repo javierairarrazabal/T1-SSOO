@@ -13,6 +13,7 @@ int ubicacion_semaforos[3];
 int cant_turnos[4];
 int distancia = 0;
 int ubicacion_bodega;
+int id_repartidor;
 
 void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
 {
@@ -40,7 +41,8 @@ int main(int argc, char const *argv[])
   ubicacion_bodega = strtol(argv[7], NULL, 10);
   int ultimo = strtol(argv[8], NULL, 10);
   int parent_pid = strtol(argv[9], NULL, 10);
-  printf("I'm the REPARTIDOR process and my PID is: %i\n", getpid());
+  int id_repartidor = strtol(argv[10], NULL, 10);
+  printf("I'm the REPARTIDOR process and my PID is: %i and my ID is: %i\n", getpid(), id_repartidor);
   sleep(1);
   while (true)
   {
