@@ -11,7 +11,7 @@ void handle_sigabrt(int sig)
 {
   printf("Semaforo %i ESCRIBIR ARCHIVO Y SALIR\n", getpid());
   FILE *output = fopen("semaforo.txt", "w");
-  fprintf(output, cambios);
+  fprintf(output, "%i", cambios);
   fclose(output);
   printf("SEMAFORO YA ESCRIBIO");
   exit(0);
