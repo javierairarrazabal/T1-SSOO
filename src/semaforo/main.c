@@ -13,6 +13,7 @@ void handle_sigabrt(int sig)
   FILE *output = fopen("semaforo.txt", "w");
   fprintf(output, cambios);
   fclose(output);
+  printf("SEMAFORO YA ESCRIBIO");
   exit(0);
 }
 
