@@ -49,12 +49,12 @@ void handle_sigalrm(int sig)
       sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
       sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
       sprintf(&pid_parent, "%d", pid_parent);
-      if (i == cant_repartidores-1)
+      if (i < cant_repartidores-1)
       {
+        sprintf(&ultimo, "%d", 0);
+      } else {
         printf("SE MANDO ULTIMOOOOO\n");
         sprintf(&ultimo, "%d", 1);
-      } else {
-        sprintf(&ultimo, "%d", 0);
       }
       myargs[0] = strdup("./repartidor");
       myargs[1] = &estado_semaforos[0];
