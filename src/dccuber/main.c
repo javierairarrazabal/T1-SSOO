@@ -90,7 +90,10 @@ void handle_sigusr2(int sig)
 void handle_sigabrt(int sig)
 {
   printf("ABRT A FABRICA\n");
-  kill(repartidores_pid[0], SIGABRT);
+  for (int i = 0; i < cant_repartidores; i++)
+  {
+    kill(repartidores_pid[0], SIGABRT);
+  }
 }
 
 int main(int argc, char const *argv[])
