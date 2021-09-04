@@ -16,7 +16,6 @@ pid_t principal_pid;
 
 void handle_sigint(int sig)
 {
-  int status_main;
   printf("sigint a último\n");
   kill(fabrica_pid, SIGABRT);
   //waitpid(fabrica_pid, &status_main, 0);
@@ -92,11 +91,10 @@ void handle_sigusr2(int sig)
 void handle_sigabrt(int sig)
 {
   printf("ABRT A FABRICA\n");
-  int status_fabrica;
-  for (int i = 0; i < cant_repartidores; i++)
-  {
-    kill(repartidores_pid[i], SIGABRT);
-  }
+  // for (int i = 0; i < cant_repartidores; i++)
+  // {
+  //   kill(repartidores_pid[i], SIGABRT);
+  // }
 }
 
 int main(int argc, char const *argv[])
