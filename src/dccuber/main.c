@@ -41,7 +41,8 @@ void handle_sigalrm(int sig)
     repartidores_pid[i] = fork();
     if (!repartidores_pid[i])
     {
-      contador++;
+      printf("contador: %i\n", contador);
+      printf("ID dentro: %i\n", i);
       char *myargs[11];
       sprintf(&estado_semaforos[0], "%d", semaforos[0]);
       sprintf(&estado_semaforos[1], "%d", semaforos[1]);
@@ -54,7 +55,7 @@ void handle_sigalrm(int sig)
       if (contador < cant_repartidores-1)
       {
         sprintf(&ultimo, "%d", 0);
-        printf("holaa");
+        printf("holaa\n");
       } else {
         printf("SE MANDO ULTIMOOOOO\n");
         sprintf(&ultimo, "%d", 1);
@@ -70,6 +71,7 @@ void handle_sigalrm(int sig)
       myargs[8] = &ultimo;
       myargs[9] = &pid_parent;
       myargs[10] = NULL;
+      contador++;
       execvp(myargs[0], myargs);
     }
     sleep(tiempo_generacion);
