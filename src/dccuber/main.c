@@ -96,7 +96,6 @@ void handle_sigabrt(int sig)
   for (int i = 0; i < cant_repartidores; i++)
   {
     kill(repartidores_pid[i], SIGABRT);
-    waitpid(repartidores_pid[i], &status_fabrica, 0);
   }
 }
 
