@@ -13,7 +13,7 @@ pid_t *repartidores_pid;
 int cant_repartidores;
 pid_t fabrica_pid;
 pid_t principal_pid;
-int contador = 1;
+int contador = 0;
 
 void handle_sigint(int sig)
 {
@@ -38,6 +38,7 @@ void handle_sigalrm(int sig)
     printf("ID: %i\n", i);
     // printf("cantidad menos 1: %i\n", cant_repartidores-1);
     // printf("comparación: %i\n", i == cant_repartidores-1);
+    contador++;
     repartidores_pid[i] = fork();
     if (!repartidores_pid[i])
     {
@@ -71,7 +72,6 @@ void handle_sigalrm(int sig)
       myargs[8] = &ultimo;
       myargs[9] = &pid_parent;
       myargs[10] = NULL;
-      contador++;
       execvp(myargs[0], myargs);
     }
     sleep(tiempo_generacion);
