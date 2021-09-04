@@ -186,7 +186,9 @@ int main(int argc, char const *argv[])
       while(!repartidores_pid[cant_repartidores-1]);
       printf("se creo el ultimo\n");
       printf("%i pid del ultimo", repartidores_pid[cant_repartidores-1]);
-      waitpid(repartidores_pid[cant_repartidores-1], &status_fabrica, 0);
+      for (int i = 0; i < cant_repartidores; i++) {
+        waitpid(repartidores_pid[i], &status_fabrica, 0);
+      }
       printf("termino el ultimo\n");
       exit(0);
     }
