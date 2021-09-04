@@ -18,7 +18,6 @@ void handle_sigint(int sig)
 {
   printf("sigint a último\n");
   kill(fabrica_pid, SIGABRT);
-  //waitpid(fabrica_pid, &status_main, 0);
 }
 
 void handle_sigalrm(int sig)
@@ -200,9 +199,9 @@ int main(int argc, char const *argv[])
     kill(semaforos_pid[0], SIGABRT);
     kill(semaforos_pid[1], SIGABRT);
     kill(semaforos_pid[2], SIGABRT);
-    // while ((pid=waitpid(-1,&status,0))!=-1) {
-    //   printf("Process %d terminated\n",pid);
-    // }
+    waitpid(semaforos_pid[0], &status, 0);
+    waitpid(semaforos_pid[1], &status, 0);
+    waitpid(semaforos_pid[2], &status, 0);
     printf("Liberando memoria...\n");
     input_file_destroy(data_in);
     //free(repartidores_pid);
