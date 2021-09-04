@@ -35,8 +35,8 @@ void handle_sigalrm(int sig)
   for (int i = 1; i < cant_repartidores; i++)
   {
     printf("ID: %i\n", i);
-    printf("cantidad menos 1: %i\n", cant_repartidores-1);
-    printf("comparación: %i\n", i == cant_repartidores-1);
+    // printf("cantidad menos 1: %i\n", cant_repartidores-1);
+    // printf("comparación: %i\n", i == cant_repartidores-1);
     repartidores_pid[i] = fork();
     if (!repartidores_pid[i])
     {
@@ -52,6 +52,7 @@ void handle_sigalrm(int sig)
       if (i < cant_repartidores-1)
       {
         sprintf(&ultimo, "%d", 0);
+        printf("holaa");
       } else {
         printf("SE MANDO ULTIMOOOOO\n");
         sprintf(&ultimo, "%d", 1);
