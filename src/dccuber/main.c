@@ -49,6 +49,7 @@ void handle_sigalrm(int sig)
       sprintf(&pid_parent, "%d", pid_parent);
       if (i == cantidad_restante-1)
       {
+        printf("SE MANDO ULTIMOOOOO\n");
         sprintf(&ultimo, "%d", 1);
       } else {
         sprintf(&ultimo, "%d", 0);
