@@ -183,6 +183,7 @@ int main(int argc, char const *argv[])
         execvp(myargs[0], myargs);
       }
     }
+    signal(SIGINT, handle_sigint);
     waitpid(fabrica_pid, &status_main, 0);
     printf("Liberando memoria...\n");
     input_file_destroy(data_in);
