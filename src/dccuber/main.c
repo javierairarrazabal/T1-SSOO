@@ -19,7 +19,7 @@ void handle_sigint(int sig)
   int status_main;
   printf("sigint a último\n");
   kill(fabrica_pid, SIGABRT);
-  waitpid(fabrica_pid, &status_main, 0);
+  //waitpid(fabrica_pid, &status_main, 0);
 }
 
 void handle_sigalrm(int sig)
