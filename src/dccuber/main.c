@@ -188,7 +188,6 @@ int main(int argc, char const *argv[])
       printf("%i pid del ultimo", repartidores_pid[cant_repartidores-1]);
       waitpid(repartidores_pid[cant_repartidores-1], &status_fabrica, 0);
       printf("termino el ultimo\n");
-      while(true);
       exit(0);
     }
   }
