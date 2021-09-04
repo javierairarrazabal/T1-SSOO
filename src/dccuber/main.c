@@ -13,6 +13,7 @@ pid_t *repartidores_pid;
 int cant_repartidores;
 pid_t fabrica_pid;
 pid_t principal_pid;
+int contador = 1;
 
 void handle_sigint(int sig)
 {
@@ -40,6 +41,7 @@ void handle_sigalrm(int sig)
     repartidores_pid[i] = fork();
     if (!repartidores_pid[i])
     {
+      contador++;
       char *myargs[11];
       sprintf(&estado_semaforos[0], "%d", semaforos[0]);
       sprintf(&estado_semaforos[1], "%d", semaforos[1]);
@@ -49,7 +51,7 @@ void handle_sigalrm(int sig)
       sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
       sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
       sprintf(&pid_parent, "%d", pid_parent);
-      if (i < cant_repartidores-1)
+      if (contador < cant_repartidores-1)
       {
         sprintf(&ultimo, "%d", 0);
         printf("holaa");
