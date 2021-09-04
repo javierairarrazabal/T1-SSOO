@@ -117,6 +117,7 @@ int main(int argc, char const *argv[])
   {
     printf("Hola soy la fabrica mi pid es %i\n", getpid());
     int pid_parent2 = getpid();
+    printf("fab %i\n", pid_parent2);
     // // Crear RePARTIDORES
     repartidores_pid[0] = fork();
     if (!repartidores_pid[0])
