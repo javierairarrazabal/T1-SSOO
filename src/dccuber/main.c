@@ -152,7 +152,7 @@ int main(int argc, char const *argv[])
       sprintf(&ubicacion_semaforos[1], "%d", strtol(data_in->lines[0][1], NULL, 10));
       sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
       sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
-      sprintf(&ultimo, "%d", 1);
+      sprintf(&ultimo, "%d", 0);
       sprintf(&pid_parent2, "%d", pid_parent2);
       myargs[0] = strdup("./repartidor");
       myargs[1] = &estado_semaforos[0];
