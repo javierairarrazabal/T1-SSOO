@@ -101,7 +101,7 @@ void handle_sigabrt(int sig)
   printf("ABRT A FABRICA\n");
   for (int i = 0; i < cant_repartidores; i++)
   {
-    kill(repartidores_pid[0], SIGABRT);
+    kill(repartidores_pid[i], SIGABRT);
   }
 }
 
