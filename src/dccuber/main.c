@@ -34,6 +34,7 @@ void handle_sigalrm(int sig)
 
   for (int i = 1; i < cant_repartidores; i++)
   {
+     printf("ID: %i\n", i);
     repartidores_pid[i] = fork();
     if (!repartidores_pid[i])
     {
@@ -51,6 +52,7 @@ void handle_sigalrm(int sig)
         printf("SE MANDO ULTIMOOOOO\n");
         sprintf(&ultimo, "%d", 1);
       } else {
+        printf("hola\n");
         sprintf(&ultimo, "%d", 0);
       }
       myargs[0] = strdup("./repartidor");
