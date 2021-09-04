@@ -6,17 +6,14 @@
 #include <sys/wait.h>
 
 int cambios = 0;
-int id;
-char nombre_archivo;
 
 void handle_sigabrt(int sig)
 {
-  char nombre_archivo = "semaforo_" + id + ".txt";
   printf("Semaforo %i ESCRIBIR ARCHIVO Y SALIR\n", getpid());
-  FILE *output = fopen(nombre_archivo, "w");
-  fprintf(output, "%i", cambios);
-  fclose(output);
-  printf("SEMAFORO YA ESCRIBIO\n");
+  // FILE *output = fopen("semaforo.txt", "w");
+  // fprintf(output, "%i", cambios);
+  // fclose(output);
+  // printf("SEMAFORO YA ESCRIBIO\n");
   exit(0);
 }
 
