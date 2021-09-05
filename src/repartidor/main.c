@@ -25,16 +25,18 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
 void handle_sigabrt(int sig)
 {
   printf("REPARTIDOR %i ESCRIBIR ARCHIVO Y SALIR\n", getpid());
-  // FILE *output = fopen("repartidor.txt", "w");
-  // fprintf(output, "%i", cant_turnos[0]);
-  // fprintf(output, ",");
-  // fprintf(output, "%i", cant_turnos[1]);
-  // fprintf(output, ",");
-  // fprintf(output, "%i", cant_turnos[2]);
-  // fprintf(output, ",");
-  // fprintf(output, "%i", cant_turnos[3]);
-  // fclose(output);
-  // printf("REPARTIDOR YA ESCRIBIO");
+  char file[sizeof "repartidor_0.txt"];
+  sprintf(file, "repartidor_%d.txt", id_repartidor);
+  FILE *output = fopen("file", "w");
+  fprintf(output, "%i", cant_turnos[0]);
+  fprintf(output, ",");
+  fprintf(output, "%i", cant_turnos[1]);
+  fprintf(output, ",");
+  fprintf(output, "%i", cant_turnos[2]);
+  fprintf(output, ",");
+  fprintf(output, "%i", cant_turnos[3]);
+  fclose(output);
+  printf("REPARTIDOR YA ESCRIBIO");
   exit(0);
 }
 
