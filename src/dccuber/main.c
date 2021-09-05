@@ -176,8 +176,6 @@ int main(int argc, char const *argv[])
     }
     else
     {
-      int pid;
-      int status;
       signal(SIGALRM, handle_sigalrm);
       signal(SIGUSR2, handle_sigusr2);
       signal(SIGABRT, handle_sigabrt);
@@ -187,9 +185,7 @@ int main(int argc, char const *argv[])
       for (int i = 0; i < cant_repartidores; i++) {
         waitpid(repartidores_pid[i], &status_fabrica, 0);
       }
-      while ((pid=waitpid(-1,&status,0))!=-1) {
-        printf("Process %d terminated\n",pid);
-      }
+      while(true);
     }
   }
   else
