@@ -128,8 +128,7 @@ int main(int argc, char const *argv[])
 
   principal_pid = getpid();
   // inicializar variables
-  cant_repartidores = 10;
-  // cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
+  cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
   repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
   char *pid_parent = malloc(sizeof(char));
   int status_fabrica;
@@ -219,8 +218,8 @@ int main(int argc, char const *argv[])
     waitpid(semaforos_pid[2], &status, 0);
     printf("Liberando memoria...\n");
     input_file_destroy(data_in);
-    // free(repartidores_pid);
-    // free(pid_parent);
+    free(repartidores_pid);
+    free(pid_parent);
     return 0;
   }
 }
