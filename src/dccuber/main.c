@@ -182,10 +182,17 @@ int main(int argc, char const *argv[])
       alarm(strtol(data_in->lines[1][0], NULL, 10));
       connect_sigaction(SIGUSR1, handle_sigusr1);
       while(!repartidores_pid[cant_repartidores-1]);
-      for (int i = 0; i < cant_repartidores; i++) {
-        waitpid(repartidores_pid[i], &status_fabrica, 0);
+      pid_t all_finish;
+      while (true) {
+        all_finish = wait(NULL);
+        if (all_finish == -1) {
+          exit(0);
+        }
       }
-      while(true);
+      // for (int i = 0; i < cant_repartidores; i++) {
+      //   waitpid(repartidores_pid[i], &status_fabrica, 0);
+      // }
+      // while(true);
     }
   }
   else
