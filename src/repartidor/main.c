@@ -10,7 +10,7 @@
 
 int estado_semaforos[3];
 int ubicacion_semaforos[3];
-int cant_turnos[4];
+int* cant_turnos;
 int distancia = 0;
 int ubicacion_bodega;
 int id_repartidor;
@@ -36,6 +36,7 @@ void handle_sigabrt(int sig)
   fprintf(output, ",");
   fprintf(output, "%i", cant_turnos[3]);
   fclose(output);
+  free(cant_turnos);
   printf("REPARTIDOR YA ESCRIBIO\n");
   exit(0);
 }
@@ -54,8 +55,8 @@ int main(int argc, char const *argv[])
   int ultimo = strtol(argv[8], NULL, 10);
   int parent_pid = strtol(argv[9], NULL, 10);
   id_repartidor = strtol(argv[10], NULL, 10);
+  cant_turnos = calloc(4, sizeof(int));
   printf("I'm the REPARTIDOR process and my PID is: %i and my ID is: %i\n", getpid(), id_repartidor);
-  printf("FABRICA: %i \n", parent_pid);
   sleep(1);
   while (true)
   {
