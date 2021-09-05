@@ -35,7 +35,6 @@ void handle_sigalrm(int sig)
 
   for (int i = 1; i < cant_repartidores; i++)
   {
-    printf("ID: %i\n", i);
     contador++;
     repartidores_pid[i] = fork();
     if (!repartidores_pid[i])
@@ -177,6 +176,8 @@ int main(int argc, char const *argv[])
     }
     else
     {
+      int pid;
+      int status;
       signal(SIGALRM, handle_sigalrm);
       signal(SIGUSR2, handle_sigusr2);
       signal(SIGABRT, handle_sigabrt);
@@ -185,6 +186,9 @@ int main(int argc, char const *argv[])
       while(!repartidores_pid[cant_repartidores-1]);
       for (int i = 0; i < cant_repartidores; i++) {
         waitpid(repartidores_pid[i], &status_fabrica, 0);
+      }
+      while ((pid=waitpid(-1,&status,0))!=-1) {
+        printf("Process %d terminated\n",pid);
       }
     }
   }
