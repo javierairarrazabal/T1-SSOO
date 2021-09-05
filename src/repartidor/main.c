@@ -36,7 +36,7 @@ void handle_sigabrt(int sig)
   fprintf(output, ",");
   fprintf(output, "%i", cant_turnos[3]);
   fclose(output);
-  printf("REPARTIDOR YA ESCRIBIO");
+  printf("REPARTIDOR YA ESCRIBIO\n");
   exit(0);
 }
 

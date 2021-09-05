@@ -49,7 +49,7 @@ void handle_sigalrm(int sig)
       sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
       sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
       sprintf(&parent, "%d", pid_parent);
-      sprintf(&id_repartidor, "%d", i);
+      sprintf(&id_repartidor, "%d", contador);
       if (contador < cant_repartidores-1)
       {
         sprintf(&ultimo, "%d", 0);
