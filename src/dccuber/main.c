@@ -188,7 +188,7 @@ int main(int argc, char const *argv[])
   }
   else
   {
-    sprintf(pid_parent, "%d", fabrica_pid);
+    sprintf(&pid_parent, "%d", fabrica_pid);
     for (int i = 0; i < 3; i++)
     {
       semaforos_pid[i] = fork();
@@ -199,7 +199,7 @@ int main(int argc, char const *argv[])
         myargs[0] = strdup("./semaforo");
         myargs[1] = &id_semaforo;
         myargs[2] = data_in->lines[1][2 + i];
-        myargs[3] = pid_parent;
+        myargs[3] = &pid_parent;
         myargs[4] = NULL;
         execvp(myargs[0], myargs);
       }
