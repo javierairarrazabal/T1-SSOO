@@ -190,7 +190,6 @@ int main(int argc, char const *argv[])
       for (int i = 0; i < cant_repartidores; i++) {
         waitpid(repartidores_pid[i], &status_fabrica, 0);
       }
-      while(true);
     }
   }
   else
