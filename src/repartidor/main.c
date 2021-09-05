@@ -27,7 +27,7 @@ void handle_sigabrt(int sig)
   printf("REPARTIDOR %i ESCRIBIR ARCHIVO Y SALIR\n", getpid());
   char file[sizeof "repartidor_0.txt"];
   sprintf(file, "repartidor_%d.txt", id_repartidor);
-  FILE *output = fopen("file", "w");
+  FILE *output = fopen(file, "w");
   fprintf(output, "%i", cant_turnos[0]);
   fprintf(output, ",");
   fprintf(output, "%i", cant_turnos[1]);
