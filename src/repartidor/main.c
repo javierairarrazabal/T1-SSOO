@@ -55,7 +55,7 @@ int main(int argc, char const *argv[])
   int parent_pid = strtol(argv[9], NULL, 10);
   id_repartidor = strtol(argv[10], NULL, 10);
   printf("I'm the REPARTIDOR process and my PID is: %i and my ID is: %i\n", getpid(), id_repartidor);
-  printf("FABRICA: %i, parent_pid\n");
+  printf("FABRICA: %i \n", parent_pid);
   sleep(1);
   while (true)
   {
