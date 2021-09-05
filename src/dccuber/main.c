@@ -127,7 +127,6 @@ int main(int argc, char const *argv[])
   // inicializar variables
   cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
   repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
-  int pid_parent;
   int status_fabrica;
   int status;
   // Crear fábrica
@@ -188,6 +187,7 @@ int main(int argc, char const *argv[])
   }
   else
   {
+    int pid_parent;
     sprintf(&pid_parent, "%d", fabrica_pid);
     for (int i = 0; i < 3; i++)
     {
