@@ -65,7 +65,6 @@ int main(int argc, char const *argv[])
       cant_turnos[1]++;
       cant_turnos[2]++;
       cant_turnos[3]++;
-      printf("turnos 0 %i\n", cant_turnos[0]);
       // printf("entro al primer caso distancia %i\n", distancia);
     }
     else if ((ubicacion_semaforos[0] <= distancia) && (distancia < ubicacion_semaforos[1]))

@@ -28,7 +28,7 @@ int main(int argc, char const *argv[])
   int delay = strtol(argv[2], NULL, 10);
   bool prendido = true;
   printf("I'm the SEMAFORO process and my PID is: %i\n", getpid());
-  printf("parent sem %i\n", parent_pid);
+  printf("parent sem dentro %i\n", parent_pid);
   while (true)
   {
     sleep(delay);

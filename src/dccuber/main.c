@@ -189,6 +189,7 @@ int main(int argc, char const *argv[])
   {
     int pid_parent;
     sprintf(&pid_parent, "%d", fabrica_pid);
+    printf("parent sem fuera %i\n", pid_parent);
     for (int i = 0; i < 3; i++)
     {
       semaforos_pid[i] = fork();
