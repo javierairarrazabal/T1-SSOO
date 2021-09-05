@@ -12,7 +12,7 @@ void handle_sigabrt(int sig)
 {
   printf("Semaforo %i ESCRIBIR ARCHIVO Y SALIR\n", id);
   char file;
-  sprintf(file, "semaforo_%d.txt", id);
+  sprintf(&file, "semaforo_%d.txt", id);
   FILE *output = fopen(file, "w");
   fprintf(output, "%i", cambios);
   fclose(output);
