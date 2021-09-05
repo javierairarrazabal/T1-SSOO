@@ -10,8 +10,10 @@ int id;
 
 void handle_sigabrt(int sig)
 {
+  char file;
+  sprintf(file, "semaforo_%d.txt", id);
   printf("Semaforo %i ESCRIBIR ARCHIVO Y SALIR\n", getpid());
-  FILE *output = fopen("semaforo.txt", "w");
+  FILE *output = fopen(file, "w");
   fprintf(output, "%i", cambios);
   fclose(output);
   printf("SEMAFORO YA ESCRIBIO\n");

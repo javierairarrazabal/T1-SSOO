@@ -56,7 +56,6 @@ void handle_sigalrm(int sig)
       if (contador < cant_repartidores-1)
       {
         sprintf(&ultimo, "%d", 0);
-        printf("holaa\n");
       } else {
         printf("SE MANDO ULTIMOOOOO\n");
         sprintf(&ultimo, "%d", 1);
@@ -223,8 +222,8 @@ int main(int argc, char const *argv[])
     waitpid(semaforos_pid[2], &status, 0);
     printf("Liberando memoria...\n");
     input_file_destroy(data_in);
-    free(repartidores_pid);
-    free(pid_parent);
+    // free(repartidores_pid);
+    // free(pid_parent);
     return 0;
   }
 }
