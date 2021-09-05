@@ -17,7 +17,6 @@ int contador = 0;
 
 void handle_sigint(int sig)
 {
-  printf("sigint a último\n");
   kill(fabrica_pid, SIGABRT);
 }
 
@@ -87,14 +86,12 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
 
 void handle_sigusr2(int sig)
 {
-  printf("Llegó señal del último\n");
   kill(principal_pid, SIGINT);
 }
 
 void handle_sigabrt(int sig)
 {
   int status;
-  printf("ABRT A FABRICA\n");
   for (int i = 0; i < cant_repartidores; i++)
   {
     kill(repartidores_pid[i], SIGABRT);
@@ -130,7 +127,7 @@ int main(int argc, char const *argv[])
   // inicializar variables
   cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
   repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
-  char *pid_parent = malloc(sizeof(char));
+  int *pid_parent = malloc(sizeof(char));
   int status_fabrica;
   int status;
   // Crear fábrica

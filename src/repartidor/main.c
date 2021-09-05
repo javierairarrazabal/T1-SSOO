@@ -89,7 +89,7 @@ int main(int argc, char const *argv[])
       printf("%i llego a la bodega\n", getpid());
       if (ultimo)
       {
-        printf("Llegó el último. PID FAB %d\n", parent_pid);
+        printf("Llegó el último\n");
         kill(parent_pid, SIGUSR2);
       }
       while(true);
