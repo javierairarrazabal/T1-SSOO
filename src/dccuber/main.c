@@ -127,7 +127,7 @@ int main(int argc, char const *argv[])
   // inicializar variables
   cant_repartidores = strtol(data_in->lines[1][1], NULL, 10);
   repartidores_pid = calloc(cant_repartidores, sizeof(pid_t));
-  int *pid_parent = malloc(sizeof(int));
+  int pid_parent;
   int status_fabrica;
   int status;
   // Crear fábrica
@@ -216,7 +216,6 @@ int main(int argc, char const *argv[])
     printf("Liberando memoria...\n");
     input_file_destroy(data_in);
     free(repartidores_pid);
-    free(pid_parent);
     return 0;
   }
 }
