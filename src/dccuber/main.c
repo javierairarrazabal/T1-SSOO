@@ -32,6 +32,7 @@ void handle_sigalrm(int sig)
   int ultimo;
   int pid_parent = getpid();
   int id_repartidor;
+  char parent;
 
   for (int i = 1; i < cant_repartidores; i++)
   {
@@ -47,7 +48,7 @@ void handle_sigalrm(int sig)
       sprintf(&ubicacion_semaforos[1], "%d", strtol(data_in->lines[0][1], NULL, 10));
       sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
       sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
-      sprintf(&pid_parent, "%d", pid_parent);
+      sprintf(&parent, "%d", pid_parent);
       sprintf(&id_repartidor, "%d", i);
       if (contador < cant_repartidores-1)
       {
@@ -64,7 +65,7 @@ void handle_sigalrm(int sig)
       myargs[6] = &ubicacion_semaforos[2];
       myargs[7] = &ubicacion_bodega;
       myargs[8] = &ultimo;
-      myargs[9] = &pid_parent;
+      myargs[9] = &parent;
       myargs[10] = &id_repartidor;
       myargs[11] = NULL;
       execvp(myargs[0], myargs);
@@ -149,6 +150,7 @@ int main(int argc, char const *argv[])
       int ubicacion_bodega;
       int ultimo;
       int id_repartidor;
+      char parent;
       char *myargs[12];
       sprintf(&estado_semaforos[0], "%d", semaforos[0]);
       sprintf(&estado_semaforos[1], "%d", semaforos[1]);
@@ -158,7 +160,7 @@ int main(int argc, char const *argv[])
       sprintf(&ubicacion_semaforos[2], "%d", strtol(data_in->lines[0][2], NULL, 10));
       sprintf(&ubicacion_bodega, "%d", strtol(data_in->lines[0][3], NULL, 10));
       sprintf(&ultimo, "%d", 0);
-      sprintf(&pid_parent2, "%d", pid_parent2);
+      sprintf(&parent, "%d", pid_parent2);
       sprintf(&id_repartidor, "%d", 0);
       myargs[0] = strdup("./repartidor");
       myargs[1] = &estado_semaforos[0];
@@ -169,7 +171,7 @@ int main(int argc, char const *argv[])
       myargs[6] = &ubicacion_semaforos[2];
       myargs[7] = &ubicacion_bodega;
       myargs[8] = &ultimo;
-      myargs[9] = &pid_parent2;
+      myargs[9] = &parent;
       myargs[10] = &id_repartidor;
       myargs[11] = NULL;
       execvp(myargs[0], myargs);
