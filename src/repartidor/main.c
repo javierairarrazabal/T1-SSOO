@@ -25,7 +25,6 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
 void handle_sigabrt(int sig)
 {
   printf("REPARTIDOR %i ESCRIBIR ARCHIVO Y SALIR\n", getpid());
-  printf("turnos 0 escribir %i\n", cant_turnos[0]);
   char file[sizeof "repartidor_0.txt"];
   sprintf(file, "repartidor_%d.txt", id_repartidor);
   FILE *output = fopen(file, "w");
@@ -87,7 +86,7 @@ int main(int argc, char const *argv[])
     }
     else
     {
-      printf("%i llego a la bodega\n", getpid());
+      printf("%i llego a la bodega\n", id_repartidor);
       if (ultimo)
       {
         printf("Llegó el último\n");

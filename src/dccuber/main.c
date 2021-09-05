@@ -134,7 +134,7 @@ int main(int argc, char const *argv[])
 
   if (!fabrica_pid) // Solo el fabrica cumple el if
   {
-    printf("Hola soy la fabrica mi pid es %i\n", getpid());
+    printf("I'm the FÁBRICA process and my PID is: %i\n", getpid());
     int pid_parent2 = getpid();
     // // Crear RePARTIDORES
     repartidores_pid[0] = fork();
@@ -189,7 +189,6 @@ int main(int argc, char const *argv[])
   {
     char pid_parent;
     sprintf(&pid_parent, "%d", fabrica_pid);
-    printf("parent sem fuera %c\n", pid_parent);
     for (int i = 0; i < 3; i++)
     {
       semaforos_pid[i] = fork();
