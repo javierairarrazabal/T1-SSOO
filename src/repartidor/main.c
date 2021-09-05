@@ -10,7 +10,7 @@
 
 int estado_semaforos[3];
 int ubicacion_semaforos[3];
-int* cant_turnos;
+int cant_turnos[4];
 int distancia = 0;
 int ubicacion_bodega;
 int id_repartidor;
@@ -25,6 +25,7 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
 void handle_sigabrt(int sig)
 {
   printf("REPARTIDOR %i ESCRIBIR ARCHIVO Y SALIR\n", getpid());
+  printf("turnos 0 escribir %i\n", cant_turnos[0]);
   char file[sizeof "repartidor_0.txt"];
   sprintf(file, "repartidor_%d.txt", id_repartidor);
   FILE *output = fopen(file, "w");
@@ -36,7 +37,6 @@ void handle_sigabrt(int sig)
   fprintf(output, ",");
   fprintf(output, "%i", cant_turnos[3]);
   fclose(output);
-  free(cant_turnos);
   printf("REPARTIDOR YA ESCRIBIO\n");
   exit(0);
 }
@@ -55,7 +55,6 @@ int main(int argc, char const *argv[])
   int ultimo = strtol(argv[8], NULL, 10);
   int parent_pid = strtol(argv[9], NULL, 10);
   id_repartidor = strtol(argv[10], NULL, 10);
-  cant_turnos = calloc(4, sizeof(int));
   printf("I'm the REPARTIDOR process and my PID is: %i and my ID is: %i\n", getpid(), id_repartidor);
   sleep(1);
   while (true)
@@ -66,6 +65,7 @@ int main(int argc, char const *argv[])
       cant_turnos[1]++;
       cant_turnos[2]++;
       cant_turnos[3]++;
+      printf("turnos 0 %i\n", cant_turnos[0]);
       // printf("entro al primer caso distancia %i\n", distancia);
     }
     else if ((ubicacion_semaforos[0] <= distancia) && (distancia < ubicacion_semaforos[1]))
