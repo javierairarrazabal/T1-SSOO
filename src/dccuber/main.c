@@ -32,7 +32,7 @@ void handle_sigalrm(int sig)
   int ultimo;
   int pid_parent = getpid();
   int id_repartidor;
-  char parent;
+  int parent;
 
   for (int i = 1; i < cant_repartidores; i++)
   {
@@ -150,7 +150,7 @@ int main(int argc, char const *argv[])
       int ubicacion_bodega;
       int ultimo;
       int id_repartidor;
-      char parent;
+      int parent;
       char *myargs[12];
       sprintf(&estado_semaforos[0], "%d", semaforos[0]);
       sprintf(&estado_semaforos[1], "%d", semaforos[1]);
