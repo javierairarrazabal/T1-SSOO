@@ -53,7 +53,7 @@ int main(int argc, char const *argv[])
   ubicacion_bodega = strtol(argv[7], NULL, 10);
   int ultimo = strtol(argv[8], NULL, 10);
   int parent_pid = strtol(argv[9], NULL, 10);
-  int id_repartidor = strtol(argv[10], NULL, 10);
+  id_repartidor = strtol(argv[10], NULL, 10);
   printf("I'm the REPARTIDOR process and my PID is: %i and my ID is: %i\n", getpid(), id_repartidor);
   sleep(1);
   while (true)
