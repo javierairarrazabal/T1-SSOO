@@ -23,7 +23,6 @@ void handle_sigint(int sig)
 
 void handle_sigalrm(int sig)
 {
-  printf("alarma\n");
   char *filename = "input.txt";
   InputFile *data_in = read_file(filename);
   int tiempo_generacion = strtol(data_in->lines[1][0], NULL, 10);
@@ -41,8 +40,6 @@ void handle_sigalrm(int sig)
     repartidores_pid[i] = fork();
     if (!repartidores_pid[i])
     {
-      printf("contador: %i\n", contador);
-      printf("ID dentro: %i\n", i);
       char *myargs[12];
       sprintf(&estado_semaforos[0], "%d", semaforos[0]);
       sprintf(&estado_semaforos[1], "%d", semaforos[1]);
@@ -57,7 +54,6 @@ void handle_sigalrm(int sig)
       {
         sprintf(&ultimo, "%d", 0);
       } else {
-        printf("SE MANDO ULTIMOOOOO\n");
         sprintf(&ultimo, "%d", 1);
       }
       myargs[0] = strdup("./repartidor");
