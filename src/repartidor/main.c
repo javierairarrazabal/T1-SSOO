@@ -24,7 +24,6 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
 
 void handle_sigabrt(int sig)
 {
-  printf("REPARTIDOR %i ESCRIBIR ARCHIVO Y SALIR\n", getpid());
   char file[sizeof "repartidor_0.txt"];
   sprintf(file, "repartidor_%d.txt", id_repartidor);
   FILE *output = fopen(file, "w");
@@ -36,7 +35,7 @@ void handle_sigabrt(int sig)
   fprintf(output, ",");
   fprintf(output, "%i", cant_turnos[3]);
   fclose(output);
-  printf("REPARTIDOR YA ESCRIBIO\n");
+  printf("Fin repartidor id %i\n", id_repartidor);
   exit(0);
 }
 
@@ -55,10 +54,6 @@ int main(int argc, char const *argv[])
   int parent_pid = strtol(argv[9], NULL, 10);
   id_repartidor = strtol(argv[10], NULL, 10);
   printf("I'm the REPARTIDOR process and my PID is: %i and my ID is: %i\n", getpid(), id_repartidor);
-  cant_turnos[0]++;
-  cant_turnos[1]++;
-  cant_turnos[2]++;
-  cant_turnos[3]++;
   sleep(1);
   while (true)
   {
@@ -90,10 +85,9 @@ int main(int argc, char const *argv[])
     }
     else
     {
-      printf("%i llego a la bodega\n", id_repartidor);
+      printf("Repartidor %i llegó a la bodega\n", id_repartidor);
       if (ultimo)
       {
-        printf("Llegó el último\n");
         kill(parent_pid, SIGUSR2);
       }
       while(true);

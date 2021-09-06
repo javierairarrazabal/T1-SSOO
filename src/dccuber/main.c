@@ -77,7 +77,7 @@ void handle_sigusr1(int sig, siginfo_t *siginfo, void *context)
 {
   int number_received = siginfo->si_value.sival_int;
   semaforos[number_received] = !semaforos[number_received];
-  //printf("Padre: Recibi semaforo id %i en estado %i\n", number_received, semaforos[number_received]);
+  // printf("Padre: Recibi semaforo id %i en estado %i\n" number_received, semaforos[number_received]);
   for (int i = 0; i < cant_repartidores; i++)
   {
     send_signal_with_int(repartidores_pid[i], number_received);
@@ -182,6 +182,7 @@ int main(int argc, char const *argv[])
       for (int i = 0; i < cant_repartidores; i++) {
         waitpid(repartidores_pid[i], &status_fabrica, 0);
       }
+      printf("Fin fábrica \n");
       exit(0);
     }
   }
@@ -216,6 +217,7 @@ int main(int argc, char const *argv[])
     printf("Liberando memoria...\n");
     input_file_destroy(data_in);
     free(repartidores_pid);
+    printf("Fin proceso principal \n");
     return 0;
   }
 }

@@ -10,13 +10,12 @@ int id;
 
 void handle_sigabrt(int sig)
 {
-  printf("Semaforo %i ESCRIBIR ARCHIVO Y SALIR\n", id);
   char file[sizeof "semaforo_0.txt"];
   sprintf(file, "semaforo_%d.txt", id);
   FILE *output = fopen(file, "w");
   fprintf(output, "%i", cambios);
   fclose(output);
-  printf("SEMAFORO YA ESCRIBIO\n");
+  printf("Fin semáforo id %i\n", id);
   exit(0);
 }
 
@@ -28,7 +27,6 @@ int main(int argc, char const *argv[])
   int delay = strtol(argv[2], NULL, 10);
   bool prendido = true;
   printf("I'm the SEMAFORO process and my PID is: %i\n", getpid());
-  printf("parent sem dentro %i\n", parent_pid);
   while (true)
   {
     sleep(delay);
