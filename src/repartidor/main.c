@@ -55,6 +55,10 @@ int main(int argc, char const *argv[])
   int parent_pid = strtol(argv[9], NULL, 10);
   id_repartidor = strtol(argv[10], NULL, 10);
   printf("I'm the REPARTIDOR process and my PID is: %i and my ID is: %i\n", getpid(), id_repartidor);
+  cant_turnos[0]++;
+  cant_turnos[1]++;
+  cant_turnos[2]++;
+  cant_turnos[3]++;
   sleep(1);
   while (true)
   {
